@@ -1,9 +1,10 @@
 { pkgs, self, super, }:
 let
-  unbreak = pkgs.haskell.lib.unmarkBroken;
+  hl = pkgs.haskell.lib;
+  unbreak = hl.unmarkBroken;
   notest = p:
-    pkgs.haskell.lib.dontBenchmark (pkgs.haskell.lib.dontCheck (unbreak p));
-  jailbreak = pkgs.haskell.lib.doJailbreak;
+    hl.dontHaddock (hl.dontBenchmark (hl.dontCheck (unbreak p)));
+  jailbreak = hl.doJailbreak;
   hackage = { pkg, ver, sha256 }:
     notest (self.callHackageDirect { inherit pkg ver sha256; } {});
   cabal2nix = name: src:
