@@ -15,7 +15,7 @@ let
       then p
       else p // { tagsPrefix = "${packageDir}/${dir}"; };
   targets =
-    pkgs.lib.attrsets.mapAttrsToList withPrefix packages.byPath;
+    pkgs.lib.attrsets.mapAttrsToList withPrefix packages.byDir;
 in {
   projectTags =
     tags.combined.all { inherit targets; };
