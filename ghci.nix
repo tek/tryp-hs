@@ -1,18 +1,16 @@
 {
   basicArgs ? [],
-  options_ghc ? "",
+  options_ghc ? null,
 }:
 let
   pkgs = import <nixpkgs> {};
-  inherit (pkgs.lib.attrsets) mapAttrsToList;
-  inherit (pkgs.lib.lists) flatten;
   libDir = m: "packages/${m}/lib";
   colonSeparated =
     builtins.concatStringsSep ":";
   searchPaths =
     paths:
     "-i${colonSeparated paths}";
-  preproc_options_ghc = if options_ghc == "" then [] else ["-optF" options_ghc];
+  preproc_options_ghc = if (builtins.isNull options_ghc || options_ghc == "") then [] else ["-optF" options_ghc];
 in rec {
   args = {
     basic =
