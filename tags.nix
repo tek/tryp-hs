@@ -5,7 +5,7 @@
 }:
 let
   pkgs = import <nixpkgs> {};
-  tags = import (fetchTarball "https://github.com/tek/thax/tarball/master") { inherit pkgs; };
+  tags = import (fetchTarball "https://github.com/tek/thax/tarball/ac5fedc60f935a4b28545b974e7997bb98ae23ea") {};
   withPrefix =
     name: dir:
     let
