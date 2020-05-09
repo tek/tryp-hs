@@ -10,8 +10,10 @@ let
     notest (self.callCabal2nix name src {});
   curated = pkg: ver:
     notest (self.callHackage pkg ver {});
+  subPkg = dir: name: src:
+      notest (self.callCabal2nixWithOptions name src "--subpath ${dir}" {});
 in {
-  inherit unbreak notest jailbreak hackage cabal2nix curated;
+  inherit unbreak notest jailbreak hackage cabal2nix curated subPkg;
   pack = pkg: ver: sha256:
     { name = pkg; value = hackage { inherit pkg ver sha256; }; };
   jpack = pkg: ver: sha256:
