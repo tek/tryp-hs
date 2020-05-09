@@ -5,6 +5,7 @@ rec {
   ghci = import ./ghci.nix;
   ghcid = import ./ghcid.nix;
   packageSets = import ./package-sets.nix;
+  tags = import ./tags.nix;
 
   project = {
     nixpkgs ? import <nixpkgs>,
