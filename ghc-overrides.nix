@@ -5,8 +5,12 @@
 }:
 let
   nixpkgs = import <nixpkgs> {};
-  local = ghc: n: s: nixpkgs.haskell.lib.dontCheck (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
+  local = notest: ghc: n: s:
+    notest (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
   localOverrides = self: super:
-    builtins.mapAttrs (local self) packages;
+    let
+      hack = import ./hackage.nix { pkgs = nixpkgs; inherit self super; };
+    in
+      builtins.mapAttrs (local hack.notest self) packages;
 in
   nixpkgs.lib.composeExtensions localOverrides overrides
