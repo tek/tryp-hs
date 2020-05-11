@@ -5,10 +5,10 @@ let
   pkgs = import <nixpkgs> {};
   ghcideSrc =
     pkgs.fetchFromGitHub {
-      owner = "tek";
+      owner = "digital-asset";
       repo = "ghcide";
-      rev = "strip-path-from-error";
-      sha256 = "10ixr6r7vrhcxxll2ajbrmx8rkv9bn91pfbq1sv583q5928xwq83";
+      rev = "master";
+      sha256 = "1rz8qikjjd9ij68r077864n68v36xcrqjgp0ji1imvz1ap91izbm";
     };
   deps = self: super:
   let
@@ -17,8 +17,8 @@ let
   in {
     ghc-check = hackage {
       pkg = "ghc-check";
-      ver = "0.1.0.3";
-      sha256 = "038llbvryk5y27jbdpbshp0zw5lw1j6m7qk7vx1n96ykqdzkh649";
+      ver = "0.3.0.1";
+      sha256 = "1dj909m09m24315x51vxvcl28936ahsw4mavbc53danif3wy09ns";
     };
     lsp-test = curated "lsp-test" "0.6.1.0";
     haddock-library = curated "haddock-library" "1.8.0";
