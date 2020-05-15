@@ -24,13 +24,13 @@ let
     haddock-library = curated "haddock-library" "1.8.0";
     haskell-lsp = hackage {
       pkg = "haskell-lsp";
-      ver = "0.21.0.0";
-      sha256 = "1j6nvaxppr3wly2cprv556yxr220qw1ghd3ac139iw16ihfjvz8a";
+      ver = "0.22.0.0";
+      sha256 = "1q3w46qcvzraxgmw75s7bl0qvb2fvff242r5vfx95sqska566b4m";
     };
     haskell-lsp-types = hackage {
       pkg = "haskell-lsp-types";
-      ver = "0.21.0.0";
-      sha256 = "0vq7v6k9szmwxh2haphgzb3c2xih6h5yyq57707ncg0ha75bhlll";
+      ver = "0.22.0.0";
+      sha256 = "1apjclphi2v6ggrdnbc0azxbb1gkfj3x1vkwpc8qd6lsrbyaf0n8";
     };
     regex-posix = curated "regex-posix" "0.96.0.0";
     test-framework = curated "test-framework" "0.8.2.0";
