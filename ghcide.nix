@@ -7,8 +7,8 @@ let
     pkgs.fetchFromGitHub {
       owner = "digital-asset";
       repo = "ghcide";
-      rev = "master";
-      sha256 = "1rz8qikjjd9ij68r077864n68v36xcrqjgp0ji1imvz1ap91izbm";
+      rev = "5ac6e200c0d8ab008abc1584f068d1a40f76e3f5";
+      sha256 = "0k9qx3xpvl22m9gd7ys8li90yvj67zn4lm2sqmsw6j1sh5raxnng";
     };
   deps = self: super:
   let
