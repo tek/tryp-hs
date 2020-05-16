@@ -1,4 +1,5 @@
 {
+  base,
   commands ? {},
   packages,
   ghci,
@@ -13,7 +14,7 @@ let
     lib.attrsets.mapAttrsToList (n: d: "--restart='packages/${d}/${n}.cabal'");
 
   testMod =
-    pkg: type: "packages/${pkg}/${type}";
+    pkg: type: "${toString base}/packages/${pkg}/${type}";
 
   ghcidCmd =
     packages: command: test:
@@ -63,7 +64,7 @@ in shells // {
     { pkg, module, name, type, runner }:
     ghciShellFor "run" {
       inherit packages;
-      script = ghci.scripts.run module runner;
+      script = ghci.scripts.run pkg module runner;
       test = ghci.tests.test name runner;
       extraSearch = [(testMod pkg type)];
     };

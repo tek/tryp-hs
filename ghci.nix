@@ -1,16 +1,27 @@
 {
+  base,
   basicArgs ? [],
   options_ghc ? null,
+
 }:
 let
   pkgs = import <nixpkgs> {};
-  libDir = m: "packages/${m}/lib";
+
+  testCwd =
+    pkg: "${toString base}/packages/${pkg}";
+
+  libDir = m: "${toString base}/packages/${m}/lib";
+
   colonSeparated =
     builtins.concatStringsSep ":";
+
   searchPaths =
     paths:
     "-i${colonSeparated paths}";
-  preproc_options_ghc = if (builtins.isNull options_ghc || options_ghc == "") then [] else ["-optF" options_ghc];
+
+  preproc_options_ghc =
+    if (builtins.isNull options_ghc || options_ghc == "") then [] else ["-optF" options_ghc];
+
 in rec {
   args = {
     basic =
@@ -28,7 +39,8 @@ in rec {
       import Hedgehog (check)
     '';
 
-    unit = module: ''
+    unit = pkg: module: ''
+      :cd ${testCwd pkg}
       :load ${module}
       import ${module}
       import Hedgehog (check, property, test, withTests)
@@ -39,11 +51,11 @@ in rec {
       import ${module}
     '';
 
-    run = module: runner:
+    run = pkg: module: runner:
     if runner == "hedgehog-property"
     then property module
     else if runner == "hedgehog-unit"
-    then unit module
+    then unit pkg module
     else generic module;
 
   };

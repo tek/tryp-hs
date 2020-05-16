@@ -21,10 +21,10 @@ rec {
     pkgs = ghcNixpkgs { inherit nixpkgs compiler packages overrides cabal2nixOptions; };
     sets = packageSets { maps = { all = packages; }; };
     ghc = pkgs.haskell.packages.${compiler};
-    ghci' = ghci { basicArgs = ghciArgs; inherit options_ghc; };
+    ghci' = ghci { basicArgs = ghciArgs; inherit options_ghc base; };
   in {
     inherit pkgs sets ghc compiler;
     ghci = ghci';
-    ghcid = ghcid { inherit ghc; packages = sets.all; ghci = ghci'; };
+    ghcid = ghcid { inherit ghc base; packages = sets.all; ghci = ghci'; };
   };
 }
