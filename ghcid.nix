@@ -4,11 +4,11 @@
   packages,
   ghci,
   ghc,
+  ghcide ? import ./ghcide.nix { inherit ghc; },
 }:
 let
   pkgs = import <nixpkgs> {};
   lib = pkgs.lib;
-  ghcide = import ./ghcide.nix { inherit ghc; };
 
   restarts =
     lib.attrsets.mapAttrsToList (n: d: "--restart='packages/${d}/${n}.cabal'");
