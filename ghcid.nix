@@ -54,6 +54,8 @@ let
   };
 
   shells = builtins.mapAttrs ghciShellFor commands;
+
+  globalPackages = packages;
 in shells // {
   inherit commands shellFor;
 
@@ -61,7 +63,7 @@ in shells // {
   cmdFile = ghcidCmdFile;
 
   run =
-    { pkg, module, name, type, runner }:
+    { pkg, module, name, type, runner, packages ? globalPackages }:
     ghciShellFor "run" {
       inherit packages;
       script = ghci.scripts.run pkg module runner;
