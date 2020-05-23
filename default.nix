@@ -7,7 +7,7 @@ rec {
   packageSets = import ./package-sets.nix;
   tags = import ./tags.nix;
 
-  project = {
+  projectWithSets = {
     nixpkgs ? import <nixpkgs>,
     compiler ? "ghc865",
     ghciArgs ? [],
@@ -15,11 +15,12 @@ rec {
     cabal2nixOptions ? "",
     options_ghc ? null,
     base,
-    packages,
+    sets,
+    ...
   }:
   let
+    packages = sets.all.byPath;
     pkgs = ghcNixpkgs { inherit nixpkgs compiler packages overrides cabal2nixOptions; };
-    sets = packageSets { maps = { all = packages; }; };
     ghc = pkgs.haskell.packages.${compiler};
     ghci' = ghci { basicArgs = ghciArgs; inherit options_ghc base; };
   in {
@@ -27,4 +28,10 @@ rec {
     ghci = ghci';
     ghcid = ghcid { inherit ghc base; packages = sets.all; ghci = ghci'; };
   };
+
+  project = args@{ packages, ... }:
+  let
+    sets = packageSets { maps = { all = packages; }; };
+  in
+    projectWithSets (args // { inherit sets; });
 }
