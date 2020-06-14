@@ -5,11 +5,12 @@ let
   pkgs = import <nixpkgs> {};
   ghcideSrc =
     pkgs.fetchFromGitHub {
-      owner = "digital-asset";
+      owner = "tek";
       repo = "ghcide";
-      rev = "a1cb4eb8fa27821a28b48ce05bb690d82792a18f";
-      sha256 = "0if5igx18wpj73l1bm032g3bcpxl6xk74b8s4hgx95kn5rsmk8pg";
+      rev = "ab229a58ef13fc2b39a77ab3de4604881f97d373";
+      sha256 = "0qcldkwy46l1qarc3s43jd18z48w0k27hxh0ml67gvvl1i0hsacb";
     };
+  # ghcideSrc = ../../../ext/haskell/ghcide;
   deps = self: super:
   let
     hack = import ./hackage.nix { inherit pkgs self super; };
@@ -17,8 +18,8 @@ let
   in {
     ghc-check = hackage {
       pkg = "ghc-check";
-      ver = "0.3.0.1";
-      sha256 = "1dj909m09m24315x51vxvcl28936ahsw4mavbc53danif3wy09ns";
+      ver = "0.5.0.1";
+      sha256 = "1zlbss7h6infzhhpilvkpk50gxypkb2li8fspi69jlll5l7wqi3d";
     };
     lsp-test = curated "lsp-test" "0.6.1.0";
     haddock-library = curated "haddock-library" "1.8.0";
@@ -39,8 +40,8 @@ let
     shake = curated "shake" "0.18.4";
     hie-bios = hackage {
       pkg = "hie-bios";
-      ver = "0.4.0";
-      sha256 = "19lpg9ymd9656cy17vna8wr1hvzfal94gpm2d3xpnw1d5qr37z7x";
+      ver = "0.5.0";
+      sha256 = "116nmpva5jmlgc2dgy8cm5wv6cinhzmga1l0432p305074w720r2";
     };
     ghcide = cabal2nix "ghcide" ghcideSrc;
   };
