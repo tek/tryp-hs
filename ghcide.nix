@@ -5,10 +5,10 @@ let
   pkgs = import <nixpkgs> {};
   ghcideSrc =
     pkgs.fetchFromGitHub {
-      owner = "tek";
+      owner = "digital-asset";
       repo = "ghcide";
-      rev = "ab229a58ef13fc2b39a77ab3de4604881f97d373";
-      sha256 = "0qcldkwy46l1qarc3s43jd18z48w0k27hxh0ml67gvvl1i0hsacb";
+      rev = "8de10e9474898b43c66581f40fe0eea6741a286b";
+      sha256 = "1mpq87k6jsda8d5swa67m6dnn62qrg872fx18wprghq8l4vbbcan";
     };
   # ghcideSrc = ../../../ext/haskell/ghcide;
   deps = self: super:
