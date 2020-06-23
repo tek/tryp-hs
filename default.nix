@@ -11,6 +11,7 @@ rec {
     nixpkgs ? import <nixpkgs>,
     compiler ? "ghc865",
     ghciArgs ? [],
+    ghciCommandArgs ? [],
     overrides ? _: _: {},
     cabal2nixOptions ? "",
     options_ghc ? null,
@@ -22,7 +23,7 @@ rec {
     packages = sets.all.byPath;
     pkgs = ghcNixpkgs { inherit nixpkgs compiler packages overrides cabal2nixOptions; };
     ghc = pkgs.haskell.packages.${compiler};
-    ghci' = ghci { basicArgs = ghciArgs; inherit options_ghc base; };
+    ghci' = ghci { basicArgs = ghciArgs; commandArgs = ghciCommandArgs; inherit options_ghc base; };
   in {
     inherit pkgs sets ghc compiler;
     ghci = ghci';
