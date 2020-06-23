@@ -1,6 +1,7 @@
 {
   base,
   basicArgs ? [],
+  commandArgs ? [],
   options_ghc ? null,
 
 }:
@@ -26,6 +27,9 @@ in rec {
   args = {
     basic =
       ["-no-user-package-db" "-package-env" "-"] ++ basicArgs;
+
+    command =
+      commandArgs;
 
     preprocessor =
       ["-F" "-pgmF" ./preprocessor.bash] ++ preproc_options_ghc;
@@ -74,11 +78,12 @@ in rec {
     packages: script: extraSearch:
     let
       basic = toString args.basic;
+      command = toString args.command;
       preproc = toString args.preprocessor;
       search = searchPaths ((map libDir packages.dirs) ++ extraSearch);
       scriptFile = pkgs.writeText "ghci-script" script;
     in
-    "ghci ${basic} ${preproc} ${search} -ghci-script ${scriptFile}";
+    "ghci ${basic} ${command} ${preproc} ${search} -ghci-script ${scriptFile}";
 
   ghcide-conf =
     packages:
