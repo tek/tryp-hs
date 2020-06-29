@@ -7,8 +7,8 @@ let
     pkgs.fetchFromGitHub {
       owner = "digital-asset";
       repo = "ghcide";
-      rev = "21161389842a3141f82c82a6757d6eadfb264e8b";
-      sha256 = "01g3pxjpr9dwhl58hbgnw1qj6q90imjzbfz7r17j97iwv5p8mkbz";
+      rev = "a873c28b678aa441b79623685a29873feb98b420";
+      sha256 = "07ncjszb3q3qxkqjnd4bmp51pmm9pyc3f7i3kn4ns8f5vpl7s614";
     };
   # ghcideSrc = ../../../ext/haskell/ghcide;
   deps = self: super:
@@ -21,7 +21,16 @@ let
       ver = "0.5.0.1";
       sha256 = "1zlbss7h6infzhhpilvkpk50gxypkb2li8fspi69jlll5l7wqi3d";
     };
-    lsp-test = curated "lsp-test" "0.6.1.0";
+    lsp-test = hackage {
+      pkg = "lsp-test";
+      ver = "0.11.0.2";
+      sha256 = "1jwvalwj3jblw32zig7d7d3251c6a3k3c2npvkypaslk3w2r8cq8";
+    };
+    parser-combinators = hackage {
+      pkg = "parser-combinators";
+      ver = "1.2.1";
+      sha256 = "1990d6c1zm2wq4w9521bx7l3arg4ly02hq1ass9n19gs273bxx5h";
+    };
     haddock-library = curated "haddock-library" "1.8.0";
     haskell-lsp = hackage {
       pkg = "haskell-lsp";
@@ -43,7 +52,12 @@ let
       ver = "0.5.0";
       sha256 = "116nmpva5jmlgc2dgy8cm5wv6cinhzmga1l0432p305074w720r2";
     };
-    ghcide = cabal2nix "ghcide" ghcideSrc;
+    extra = hackage {
+      pkg = "extra";
+      ver = "1.7.2";
+      sha256 = "1sz6hnnas0ck01zkgcar7nl41nxa6s6vq6aa45534w76gy8dyqpv";
+    };
+    ghcide = notest (cabal2nix "ghcide" ghcideSrc);
   };
   finalGhc = ghc.override { overrides = deps; };
 in
