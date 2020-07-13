@@ -7,8 +7,8 @@ let
     pkgs.fetchFromGitHub {
       owner = "digital-asset";
       repo = "ghcide";
-      rev = "9272bfe03021d50dc8a486031217257c8ca5c7a4";
-      sha256 = "0g5dpj3m8z846hbzwnrzbrly4iki3lmhbxi0j8yqlbsivm4jnydq";
+      rev = "cbafcf29f4157e86e0522d87bf99cb2aeff1d853";
+      sha256 = "1hn8d65wxp4fnh2pnwl2br5dr7xkkn1rykhc030d5qjak8l70j4c";
     };
   # ghcideSrc = ../../../ext/haskell/ghcide;
   deps = self: super:
