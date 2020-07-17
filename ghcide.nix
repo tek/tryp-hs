@@ -49,8 +49,8 @@ let
     shake = curated "shake" "0.18.4";
     hie-bios = hackage {
       pkg = "hie-bios";
-      ver = "0.5.0";
-      sha256 = "116nmpva5jmlgc2dgy8cm5wv6cinhzmga1l0432p305074w720r2";
+      ver = "0.6.1";
+      sha256 = "0yw8yqy1bm7k8n9n2h4jm0kvndbq6mv8snlf7iy2c977cb35nr1l";
     };
     extra = hackage {
       pkg = "extra";
