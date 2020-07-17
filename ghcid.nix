@@ -63,9 +63,9 @@ in shells // {
   cmdFile = ghcidCmdFile;
 
   run =
-    { pkg, module, name, type, runner, packages ? globalPackages }:
+    { pkg, module, name, type, runner, packages ? globalPackages, env ? {} }:
     ghciShellFor "run" {
-      inherit packages;
+      inherit packages env;
       script = ghci.scripts.run pkg module runner;
       test = ghci.tests.test name runner;
       extraSearch = [(testMod pkg type)];
