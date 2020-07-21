@@ -10,19 +10,28 @@ let
   pkgs = import <nixpkgs> {};
   lib = pkgs.lib;
 
-  restarts =
-    lib.attrsets.mapAttrsToList (n: d: "--restart='packages/${d}/${n}.cabal'");
+  restart =
+    f: "--restart='${f}'";
+
+  pkgRestarts =
+    lib.attrsets.mapAttrsToList (n: d: restart "packages/${d}/${n}.cabal");
 
   testMod =
     pkg: type: "${toString base}/packages/${pkg}/${type}";
 
+  ghciCmdFile =
+    pkgs.writeScript "ghci-cmd";
+
   ghcidCmd =
-    packages: command: test:
-    "ghcid -W --reload=config ${toString (restarts packages)} --command='${command}' --test='${test}'";
+    packages: command: test: extraRestarts:
+    let
+      restarts = (pkgRestarts packages) ++ (map restart extraRestarts);
+    in
+      "ghcid -W --reload=config ${toString restarts} --command='${command}' --test='${test}'";
 
   ghcidCmdFile =
-    packages: command: test:
-    pkgs.writeScript "ghcid-cmd" (ghcidCmd packages command test);
+    packages: command: test: extraRestarts:
+    pkgs.writeScript "ghcid-cmd" (ghcidCmd packages command test extraRestarts);
 
   shellFor = {
     packages,
@@ -44,12 +53,18 @@ let
     test,
     extraSearch ? [],
     env ? {},
+    extraRestarts ? [],
+    preCommand ? "",
   }:
   let
-    command = ghci.command packages script extraSearch;
+    mainCommand = ghci.command packages script extraSearch;
+    command = ''
+      ${preCommand}
+      ${mainCommand}
+    '';
   in shellFor {
     packages = packages.names;
-    hook = ghcidCmdFile packages.byDir command test;
+    hook = ghcidCmdFile packages.byDir command test extraRestarts;
     inherit env;
   };
 
@@ -57,15 +72,24 @@ let
 
   globalPackages = packages;
 in shells // {
-  inherit commands shellFor;
+  inherit commands shellFor ghcidCmdFile;
 
   cmd = ghcidCmd;
-  cmdFile = ghcidCmdFile;
+  cmdFile = ghcidCmdFile ghciShellFor;
 
   run =
-    { pkg, module, name, type, runner, packages ? globalPackages, env ? {} }:
+    { pkg,
+      module,
+      name,
+      type,
+      runner,
+      packages ? globalPackages,
+      env ? {},
+      extraRestarts ? [],
+      preCommand ? "",
+    }:
     ghciShellFor "run" {
-      inherit packages env;
+      inherit packages env extraRestarts preCommand;
       script = ghci.scripts.run pkg module runner;
       test = ghci.tests.test name runner;
       extraSearch = [(testMod pkg type)];
