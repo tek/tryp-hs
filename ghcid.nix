@@ -27,7 +27,7 @@ let
     let
       restarts = (pkgRestarts packages) ++ (map restart extraRestarts);
     in
-      "ghcid -W --reload=config ${toString restarts} --command='${command}' --test='${test}'";
+      "ghcid -W ${toString restarts} --command='${command}' --test='${test}'";
 
   ghcidCmdFile =
     packages: command: test: extraRestarts:
