@@ -4,7 +4,7 @@
   packages,
   ghci,
   ghc,
-  ghcide ? import ./ghcide.nix { inherit ghc; },
+  ghcide ? import ./ghcide.nix base { inherit ghc; },
 }:
 let
   pkgs = import <nixpkgs> {};

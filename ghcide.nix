@@ -1,3 +1,4 @@
+base:
 {
   ghc,
 }:
@@ -13,7 +14,7 @@ let
   # ghcideSrc = ../../../ext/haskell/ghcide;
   deps = self: super:
   let
-    hack = import ./hackage.nix { inherit pkgs self super; };
+    hack = import ./hackage.nix base { inherit pkgs self super; };
     inherit (hack) hackage pack notest curated cabal2nix;
   in {
     ghc-check = hackage {

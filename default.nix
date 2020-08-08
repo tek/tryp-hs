@@ -1,6 +1,9 @@
+{
+  base,
+}:
 rec {
-  hackage = import ./hackage.nix;
-  ghcNixpkgs = import ./ghc-nixpkgs.nix;
+  hackage = import ./hackage.nix base;
+  ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
   ghcOverrides = import ./ghc-overrides.nix;
   ghci = import ./ghci.nix;
   ghcid = import ./ghcid.nix;
@@ -12,7 +15,7 @@ rec {
     compiler ? "ghc865",
     ghciArgs ? [],
     ghciCommandArgs ? [],
-    overrides ? _: _: {},
+    overrides ? { ... }: _: _: {},
     cabal2nixOptions ? "",
     options_ghc ? null,
     base,

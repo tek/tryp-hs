@@ -1,4 +1,9 @@
-{ pkgs, self, super, }:
+base:
+{
+  pkgs,
+  self,
+  super,
+}:
 let
   hl = pkgs.haskell.lib;
   unbreak = hl.unmarkBroken;
@@ -12,9 +17,10 @@ let
   curated = pkg: ver:
     notest (self.callHackage pkg ver {});
   subPkg = dir: name: src:
-      notest (self.callCabal2nixWithOptions name src "--subpath ${dir}" {});
+    notest (self.callCabal2nixWithOptions name src "--subpath ${dir}" {});
+  thunk = name: import ("${toString base}/ops/dep/${toString name}/thunk.nix");
 in {
-  inherit unbreak notest jailbreak hackage cabal2nix curated subPkg;
+  inherit unbreak notest jailbreak hackage cabal2nix curated subPkg thunk;
   pack = pkg: ver: sha256:
     { name = pkg; value = hackage { inherit pkg ver sha256; }; };
   jpack = pkg: ver: sha256:
