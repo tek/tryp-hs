@@ -1,3 +1,4 @@
+hackage:
 {
   packages ? {},
   overrides ? _: _: {},
@@ -9,7 +10,7 @@ let
     notest (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
   localOverrides = self: super:
     let
-      hack = import ./hackage.nix { pkgs = nixpkgs; inherit self super; };
+      hack = hackage { pkgs = nixpkgs; inherit self super; };
     in
       builtins.mapAttrs (local hack.notest self) packages;
 in

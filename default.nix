@@ -4,7 +4,7 @@
 rec {
   hackage = import ./hackage.nix base;
   ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
-  ghcOverrides = import ./ghc-overrides.nix;
+  ghcOverrides = import ./ghc-overrides.nix hackage;
   ghci = import ./ghci.nix;
   ghcid = import ./ghcid.nix;
   packageSets = import ./package-sets.nix;
