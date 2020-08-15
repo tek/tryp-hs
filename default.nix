@@ -1,41 +1,53 @@
 {
   base,
 }:
-rec {
-  hackage = import ./hackage.nix base;
-  ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
-  ghcOverrides = import ./ghc-overrides.nix hackage;
-  ghci = import ./ghci.nix;
-  ghcid = import ./ghcid.nix;
-  packageSets = import ./package-sets.nix;
-  tags = import ./tags.nix;
+let
+  util = rec {
+    hackage = import ./hackage.nix base;
+    ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
+    ghcOverrides = import ./ghc-overrides.nix hackage;
+    ghci = import ./ghci.nix;
+    ghcid = import ./ghcid.nix;
+    packageSets = import ./package-sets.nix;
+    tags = import ./tags.nix;
+  };
 
-  projectWithSets = {
+  basic = {
     nixpkgs ? import <nixpkgs>,
     compiler ? "ghc865",
-    ghciArgs ? [],
-    ghciCommandArgs ? [],
     overrides ? { ... }: _: _: {},
     cabal2nixOptions ? "",
-    options_ghc ? null,
+    profiling ? false,
     base,
     sets,
     ...
-  }:
-  let
-    packages = sets.all.byPath;
-    pkgs = ghcNixpkgs { inherit nixpkgs compiler packages overrides cabal2nixOptions; };
+  }: rec {
+    inherit compiler sets;
+    pkgs = util.ghcNixpkgs {
+      inherit nixpkgs compiler overrides cabal2nixOptions profiling;
+      packages = sets.all.byPath;
+    };
     ghc = pkgs.haskell.packages.${compiler};
-    ghci' = ghci { basicArgs = ghciArgs; commandArgs = ghciCommandArgs; inherit options_ghc base; };
-  in {
-    inherit pkgs sets ghc compiler;
-    ghci = ghci';
-    ghcid = ghcid { inherit ghc base; packages = sets.all; ghci = ghci'; };
   };
+
+  dev = basic: {
+    ghciArgs ? [],
+    ghciCommandArgs ? [],
+    commands ? {},
+    options_ghc ? null,
+    ...
+  }: basic // rec {
+    ghci = util.ghci { basicArgs = ghciArgs; commandArgs = ghciCommandArgs; inherit options_ghc base; };
+    ghcid = util.ghcid { inherit ghci base commands; inherit (basic) ghc; packages = basic.sets.all; };
+  };
+
+  projectWithSets = args: dev (basic args) args;
+in {
+  inherit util basic dev projectWithSets;
 
   project = args@{ packages, ... }:
   let
-    sets = packageSets { maps = { all = packages; }; };
+    sets = util.packageSets { maps = { all = packages; }; };
   in
     projectWithSets (args // { inherit sets; });
 }
