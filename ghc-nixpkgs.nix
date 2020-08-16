@@ -10,12 +10,18 @@ hackage:
 let
   overlay = self: super:
   let
+    inherit (self.haskell.lib) dontCheck dontHaddock dontBenchmark;
     compose = self.lib.composeExtensions;
-    local = ghc: n: s: self.haskell.lib.dontCheck (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
+    reduceWork = d: dontHaddock (dontCheck (dontBenchmark d));
+    local = ghc: n: s: reduceWork (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
     localOverrides = ghcSelf: ghcSuper:
       builtins.mapAttrs (local ghcSelf) packages;
-    profilingOverride = _: super: {
-      mkDerivation = expr: super.mkDerivation (expr // {
+    profilingOverride = _: ghcSuper: {
+      mkDerivation = args: ghcSuper.mkDerivation (args // {
+        doBenchmark = false;
+        doCheck = false;
+        doHoogle = false;
+        doHaddock = false;
         enableLibraryProfiling = profiling;
       });
     };
