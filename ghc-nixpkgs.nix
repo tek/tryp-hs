@@ -16,18 +16,25 @@ let
     local = ghc: n: s: reduceWork (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
     localOverrides = ghcSelf: ghcSuper:
       builtins.mapAttrs (local ghcSelf) packages;
-    profilingOverride = _: ghcSuper: {
-      mkDerivation = args: ghcSuper.mkDerivation (args // {
-        doBenchmark = false;
-        doCheck = false;
-        doHoogle = false;
-        doHaddock = false;
-        enableLibraryProfiling = profiling;
-      });
+    wantReduce = { pname, ... }:
+      pname != "ghc";
+    reduceDerivation = args: args // {
+      doBenchmark = false;
+      doCheck = false;
+      doHoogle = false;
+      doHaddock = false;
+      enableLibraryProfiling = profiling;
+    };
+    derivationOverride = _: ghcSuper: {
+      mkDerivation = args:
+      let
+        finalArgs = if wantReduce args then reduceDerivation args else args;
+      in
+        ghcSuper.mkDerivation finalArgs;
     };
     userOverrides = ghcSelf: ghcSuper:
       overrides { pkgs = self; hackage = hackage { pkgs = self; self = ghcSelf; super = ghcSuper; }; } ghcSelf ghcSuper;
-    combined = compose profilingOverride (compose localOverrides userOverrides);
+    combined = compose derivationOverride (compose localOverrides userOverrides);
   in {
     haskell = super.haskell // {
       packages = super.haskell.packages // {
