@@ -1,13 +1,12 @@
 {
   base,
+  pkgs,
   basicArgs ? [],
   commandArgs ? [],
   options_ghc ? null,
 
 }:
 let
-  pkgs = import <nixpkgs> {};
-
   testCwd =
     pkg: "${toString base}/packages/${pkg}";
 

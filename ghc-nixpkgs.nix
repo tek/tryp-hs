@@ -10,31 +10,7 @@ hackage:
 let
   overlay = self: super:
   let
-    inherit (self.haskell.lib) dontCheck dontHaddock dontBenchmark;
-    compose = self.lib.composeExtensions;
-    reduceWork = d: dontHaddock (dontCheck (dontBenchmark d));
-    local = ghc: n: s: reduceWork (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
-    localOverrides = ghcSelf: ghcSuper:
-      builtins.mapAttrs (local ghcSelf) packages;
-    wantReduce = { pname, ... }:
-      pname != "ghc";
-    reduceDerivation = args: args // {
-      doBenchmark = false;
-      doCheck = false;
-      doHoogle = false;
-      doHaddock = false;
-      enableLibraryProfiling = profiling;
-    };
-    derivationOverride = _: ghcSuper: {
-      mkDerivation = args:
-      let
-        finalArgs = if wantReduce args then reduceDerivation args else args;
-      in
-        ghcSuper.mkDerivation finalArgs;
-    };
-    userOverrides = ghcSelf: ghcSuper:
-      overrides { pkgs = self; hackage = hackage { pkgs = self; self = ghcSelf; super = ghcSuper; }; } ghcSelf ghcSuper;
-    combined = compose derivationOverride (compose localOverrides userOverrides);
+    combined = import ./ghc-overrides.nix hackage { inherit overrides packages cabal2nixOptions profiling; pkgs = self; };
   in {
     haskell = super.haskell // {
       packages = super.haskell.packages // {

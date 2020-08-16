@@ -1,17 +1,20 @@
 hackage:
 {
+  pkgs,
+  overrides ? { ... }: _: _: {},
   packages ? {},
-  overrides ? _: _: {},
   cabal2nixOptions ? "",
+  profiling ? false,
 }:
 let
-  nixpkgs = import <nixpkgs> {};
-  local = notest: ghc: n: s:
-    notest (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
+  tools = import ./ghc-tools.nix;
+  inherit (pkgs.haskell.lib) dontCheck dontHaddock dontBenchmark;
+  compose = pkgs.lib.composeExtensions;
+  reduceWork = d: dontHaddock (dontCheck (dontBenchmark d));
+  local = ghc: n: s: reduceWork (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
   localOverrides = self: super:
-    let
-      hack = hackage { pkgs = nixpkgs; inherit self super; };
-    in
-      builtins.mapAttrs (local hack.notest self) packages;
+    builtins.mapAttrs (local self) packages;
+  userOverrides = self: super:
+    overrides { inherit pkgs; hackage = hackage { inherit pkgs self super; }; } self super;
 in
-  nixpkgs.lib.composeExtensions localOverrides overrides
+  compose (tools.derivationOverride profiling) (compose localOverrides userOverrides)

@@ -37,8 +37,17 @@ let
     options_ghc ? null,
     ...
   }: basic // rec {
-    ghci = util.ghci { basicArgs = ghciArgs; commandArgs = ghciCommandArgs; inherit options_ghc base; };
-    ghcid = util.ghcid { inherit ghci base commands; inherit (basic) ghc; packages = basic.sets.all; };
+    ghci = util.ghci {
+      basicArgs = ghciArgs;
+      commandArgs = ghciCommandArgs;
+      inherit options_ghc base;
+      inherit (basic) pkgs;
+    };
+    ghcid = util.ghcid {
+      inherit ghci base commands;
+      inherit (basic) pkgs ghc;
+      packages = basic.sets.all;
+    };
   };
 
   projectWithSets = args: dev (basic args) args;

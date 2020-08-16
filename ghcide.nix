@@ -1,9 +1,10 @@
-base:
 {
+  base,
+  pkgs,
   ghc,
 }:
 let
-  pkgs = import <nixpkgs> {};
+  tools = import ./ghc-tools.nix;
   ghcideSrc =
     pkgs.fetchFromGitHub {
       owner = "digital-asset";
@@ -60,6 +61,6 @@ let
     };
     ghcide = notest (cabal2nix "ghcide" ghcideSrc);
   };
-  finalGhc = ghc.override { overrides = deps; };
+  finalGhc = ghc.override { overrides = pkgs.lib.composeExtensions (tools.derivationOverride false) deps; };
 in
   pkgs.haskell.lib.justStaticExecutables finalGhc.ghcide
