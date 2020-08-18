@@ -33,7 +33,7 @@ let
       ver = "1.2.1";
       sha256 = "1990d6c1zm2wq4w9521bx7l3arg4ly02hq1ass9n19gs273bxx5h";
     };
-    haddock-library = curated "haddock-library" "1.8.0";
+    haddock-library = curated "haddock-library" "1.9.0";
     haskell-lsp = hackage {
       pkg = "haskell-lsp";
       ver = "0.22.0.0";
