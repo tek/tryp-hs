@@ -8,7 +8,6 @@
   ghcide ? import ./ghcide.nix { inherit base pkgs ghc; },
 }:
 let
-  pkgs = import <nixpkgs> {};
   lib = pkgs.lib;
 
   restart =

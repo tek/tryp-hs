@@ -18,6 +18,7 @@ let
     overrides ? { ... }: _: _: {},
     cabal2nixOptions ? "",
     profiling ? false,
+    packageDir ? null,
     base,
     sets,
     ...
@@ -28,6 +29,7 @@ let
       packages = sets.all.byPath;
     };
     ghc = pkgs.haskell.packages.${compiler};
+    tags = util.tags { packages = sets.all; inherit pkgs ghc packageDir compiler; };
   };
 
   dev = basic: {

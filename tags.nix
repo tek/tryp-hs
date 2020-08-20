@@ -1,12 +1,16 @@
 {
   packages,
+  pkgs,
   ghc,
+  compiler,
   packageDir ? null,
 }:
 let
-  pkgs = import <nixpkgs> {};
-  tags = import (fetchTarball "https://github.com/tek/thax/tarball/9ac46dfef0a99a74e65c838a89d0bbab00170d8b") {};
-  # tags = import ../thax {};
+  tagsSrc = fetchTarball "https://github.com/tek/thax/tarball/95e0c9693bca1ea4ff197950dd0df1d8536e68ab";
+  # tagsSrc = ../thax;
+  tags = import tagsSrc {
+    inherit pkgs compiler;
+  };
   withPrefix =
     name: dir:
     let
