@@ -49,7 +49,7 @@ let
       inherit (basic) pkgs ghc;
       packages = basic.sets.all;
     };
-    tags = util.tags { packages = sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
+    tags = util.tags { packages = basic.sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
   };
 
   projectWithSets = args: dev (basic args) args;
