@@ -72,7 +72,7 @@ let
 
   globalPackages = packages;
 in shells // {
-  inherit commands shellFor ghcidCmdFile;
+  inherit commands shellFor ghcidCmdFile ghcide;
 
   cmd = ghcidCmd;
   cmdFile = ghcidCmdFile ghciShellFor;
