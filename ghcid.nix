@@ -9,6 +9,7 @@
 }:
 let
   lib = pkgs.lib;
+  inherit (pkgs.haskell.lib) enableCabalFlag;
 
   restart =
     f: "--restart='${f}'";
@@ -37,10 +38,13 @@ let
     packages,
     hook ? "",
     env ? {},
+    flags ? [],
   }:
   let
+    withFlags = pkg:
+    builtins.foldl' enableCabalFlag pkg flags;
     args = {
-      packages = p: map (n: p.${n}) packages;
+      packages = p: map (n: withFlags p.${n}) packages;
       buildInputs = [ghc.ghcid ghcide ghc.cabal-install];
       shellHook = hook;
     };
@@ -55,6 +59,7 @@ let
     env ? {},
     extraRestarts ? [],
     preCommand ? "",
+    flags ? [],
   }:
   let
     mainCommand = ghci.command packages script extraSearch;
@@ -65,7 +70,7 @@ let
   in shellFor {
     packages = packages.names;
     hook = ghcidCmdFile packages.byDir command test extraRestarts;
-    inherit env;
+    inherit env flags;
   };
 
   shells = builtins.mapAttrs ghciShellFor commands;
@@ -87,9 +92,10 @@ in shells // {
       env ? {},
       extraRestarts ? [],
       preCommand ? "",
+      flags ? [],
     }:
     ghciShellFor "run" {
-      inherit packages env extraRestarts preCommand;
+      inherit packages env extraRestarts preCommand flags;
       script = ghci.scripts.run pkg module runner;
       test = ghci.tests.test name runner;
       extraSearch = [(testMod pkg type)];
