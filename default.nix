@@ -10,6 +10,7 @@ let
     ghcid = import ./ghcid.nix;
     packageSets = import ./package-sets.nix;
     tags = import ./tags.nix;
+    cabal = import ./cabal.nix;
   };
 
   basic = {
@@ -50,6 +51,7 @@ let
       packages = basic.sets.all;
     };
     tags = util.tags { packages = basic.sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
+    cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
   };
 
   projectWithSets = args: dev (basic args) args;
