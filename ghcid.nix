@@ -41,15 +41,15 @@ let
     flags ? [],
   }:
   let
-    withFlags = pkg:
-    builtins.foldl' enableCabalFlag pkg flags;
+    hsPkgs = g:
+    lib.concatMap (p: p.buildInputs ++ p.propagatedBuildInputs) (map (p: g.${p}) packages);
     args = {
-      packages = p: map (n: withFlags p.${n}) packages;
-      buildInputs = [ghc.ghcid ghcide ghc.cabal-install];
+      name = "ghci-shell";
+      buildInputs = [ghc.ghcid ghcide ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)];
       shellHook = hook;
     };
   in
-    ghc.shellFor (args // env);
+    pkgs.stdenv.mkDerivation args // env;
 
   ghciShellFor = name: {
     packages,
@@ -75,9 +75,11 @@ let
 
   shells = builtins.mapAttrs ghciShellFor commands;
 
+  shellWith = args: shellFor ({ packages = packages.names; } // args);
+
   globalPackages = packages;
 in shells // {
-  inherit commands shellFor ghcidCmdFile ghcide;
+  inherit commands shellFor shellWith ghcidCmdFile ghcide;
 
   cmd = ghcidCmd;
   cmdFile = ghcidCmdFile ghciShellFor;
@@ -101,7 +103,7 @@ in shells // {
       extraSearch = [(testMod pkg type)];
     };
 
-  shell = shellFor { packages = packages.names; };
+  shell = shellWith {};
 
   ghcide-conf =
     builtins.concatStringsSep "\n" (ghci.ghcide-conf packages);

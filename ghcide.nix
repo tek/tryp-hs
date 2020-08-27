@@ -4,7 +4,7 @@
   ghc,
 }:
 let
-  tools = import ./ghc-tools.nix;
+  tools = import ./ghc-tools.nix {};
   ghcideSrc =
     pkgs.fetchFromGitHub {
       owner = "digital-asset";

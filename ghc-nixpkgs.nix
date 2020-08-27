@@ -10,7 +10,10 @@ hackage:
 let
   overlay = self: super:
   let
-    combined = import ./ghc-overrides.nix hackage { inherit overrides packages cabal2nixOptions profiling; pkgs = self; };
+    combined = import ./ghc-overrides.nix hackage {
+      inherit overrides packages cabal2nixOptions profiling;
+      pkgs = self;
+    };
   in {
     haskell = super.haskell // {
       packages = super.haskell.packages // {

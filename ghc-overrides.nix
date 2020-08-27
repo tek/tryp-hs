@@ -7,10 +7,10 @@ hackage:
   profiling ? false,
 }:
 let
-  tools = import ./ghc-tools.nix;
+  tools = import ./ghc-tools.nix { inherit packages; };
   inherit (pkgs.haskell.lib) dontCheck dontHaddock dontBenchmark;
   compose = pkgs.lib.composeExtensions;
-  reduceWork = d: dontHaddock (dontCheck (dontBenchmark d));
+  reduceWork = d: dontHaddock (dontBenchmark d);
   local = ghc: n: s: reduceWork (ghc.callCabal2nixWithOptions n s cabal2nixOptions {});
   localOverrides = self: super:
     builtins.mapAttrs (local self) packages;
