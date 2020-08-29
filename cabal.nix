@@ -6,7 +6,6 @@ let
   shell = cmd:
   ghcid.shellWith {
     hook = ''
-      ops/hpack.zsh
       ${cmd}
       exit
     '';
