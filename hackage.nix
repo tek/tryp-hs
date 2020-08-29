@@ -8,7 +8,7 @@ let
   hl = pkgs.haskell.lib;
   unbreak = hl.unmarkBroken;
   notest = p:
-    hl.dontHaddock (hl.dontBenchmark (hl.dontCheck (unbreak p)));
+    hl.dontBenchmark (hl.dontCheck (unbreak p));
   jailbreak = hl.doJailbreak;
   hackage = { pkg, ver, sha256 }:
     notest (self.callHackageDirect { inherit pkg ver sha256; } {});
