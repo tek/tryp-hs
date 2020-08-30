@@ -10,6 +10,7 @@
 let
   lib = pkgs.lib;
   inherit (pkgs.haskell.lib) enableCabalFlag;
+  inherit (lib.lists) all concatMap;
 
   restart =
     f: "--restart='${f}'";
@@ -41,8 +42,10 @@ let
     flags ? [],
   }:
   let
-    hsPkgs = g:
-    lib.concatMap (p: p.buildInputs ++ p.propagatedBuildInputs) (map (p: g.${p}) packages);
+    pkNames = map (a: a.pname) packages;
+    isTarget = p: !(isNull p) && all (n: p.pname != n) packages;
+    inputs = p: p.buildInputs ++ p.propagatedBuildInputs;
+    hsPkgs = g: builtins.filter isTarget (concatMap inputs (map (p: g.${p}) packages));
     args = {
       name = "ghci-shell";
       buildInputs = [ghc.ghcid ghcide ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)];
