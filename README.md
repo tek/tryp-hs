@@ -48,7 +48,7 @@ in
     ghciArgs = ["-hide-package" "base" "-Wall" "-Werror"];
     options_ghc = "-fplugin=Polysemy.Plugin";
     packageDir = "packages";
-  };
+  }
 ```
 
 ## ghcid
