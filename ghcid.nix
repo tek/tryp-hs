@@ -10,7 +10,7 @@
 let
   lib = pkgs.lib;
   inherit (pkgs.haskell.lib) enableCabalFlag;
-  inherit (lib.lists) all concatMap;
+  inherit (lib.lists) any concatMap;
 
   restart =
     f: "--restart='${f}'";
@@ -42,7 +42,7 @@ let
     flags ? [],
   }:
   let
-    isNotTarget = p: !(p ? pname && all (n: p.pname != n) packages);
+    isNotTarget = p: !(p ? pname && any (n: p.pname == n) packages);
     inputs = p: p.buildInputs ++ p.propagatedBuildInputs;
     hsPkgs = g: builtins.filter isNotTarget (concatMap inputs (map (p: g.${p}) packages));
     args = {
