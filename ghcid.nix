@@ -42,10 +42,9 @@ let
     flags ? [],
   }:
   let
-    pkNames = map (a: a.pname) packages;
-    isTarget = p: !(isNull p) && all (n: p.pname != n) packages;
+    isNotTarget = p: !(p ? pname && all (n: p.pname != n) packages);
     inputs = p: p.buildInputs ++ p.propagatedBuildInputs;
-    hsPkgs = g: builtins.filter isTarget (concatMap inputs (map (p: g.${p}) packages));
+    hsPkgs = g: builtins.filter isNotTarget (concatMap inputs (map (p: g.${p}) packages));
     args = {
       name = "ghci-shell";
       buildInputs = [ghc.ghcid ghcide ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)];
