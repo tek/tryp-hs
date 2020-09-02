@@ -2,6 +2,7 @@
   base,
 }:
 let
+  niv = import ./nix/sources.nix;
   util = rec {
     hackage = import ./hackage.nix base;
     ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
@@ -46,7 +47,7 @@ let
       inherit (basic) pkgs;
     };
     ghcid = util.ghcid {
-      inherit ghci base commands;
+      inherit ghci base commands niv;
       inherit (basic) pkgs ghc;
       packages = basic.sets.all;
     };

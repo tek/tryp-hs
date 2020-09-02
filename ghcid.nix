@@ -1,11 +1,12 @@
 {
   base,
-  commands ? {},
+  niv,
   pkgs,
   packages,
   ghci,
   ghc,
-  ghcide ? import ./ghcide.nix { inherit base pkgs ghc; },
+  ghcide ? import ./ghcide.nix { inherit base pkgs ghc niv; },
+  commands ? {},
 }:
 let
   lib = pkgs.lib;
