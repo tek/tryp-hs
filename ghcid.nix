@@ -7,6 +7,7 @@
   ghc,
   ghcide ? import ./ghcide.nix { inherit base pkgs ghc niv; },
   commands ? {},
+  extraShellInputs ? [],
 }:
 let
   lib = pkgs.lib;
@@ -48,7 +49,7 @@ let
     hsPkgs = g: builtins.filter isNotTarget (concatMap inputs (map (p: g.${p}) packages));
     args = {
       name = "ghci-shell";
-      buildInputs = [ghc.ghcid ghcide ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)];
+      buildInputs = [ghc.ghcid ghcide ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
       shellHook = hook;
     };
   in

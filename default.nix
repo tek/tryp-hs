@@ -38,6 +38,7 @@ let
     commands ? {},
     options_ghc ? null,
     packageDir ? null,
+    extraShellInputs ? [],
     ...
   }: basic // rec {
     ghci = util.ghci {
@@ -47,7 +48,7 @@ let
       inherit (basic) pkgs;
     };
     ghcid = util.ghcid {
-      inherit ghci base commands niv;
+      inherit ghci base commands niv extraShellInputs;
       inherit (basic) pkgs ghc;
       packages = basic.sets.all;
     };
