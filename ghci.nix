@@ -86,5 +86,5 @@ in rec {
 
   ghcide-conf =
     packages:
-    ["-Werror"] ++ args.basic ++ args.preprocessor ++ [(searchPaths (map libDir packages.dirs))];
+    args.basic ++ args.preprocessor ++ [(searchPaths (map libDir packages.dirs))];
 }
