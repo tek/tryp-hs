@@ -18,7 +18,7 @@ let
       (pack "haddock-library" "1.9.0" "12nr4qzas6fzn5p4ka27m5gs2rym0bgbfrym34yp0cd6rw9zdcl3")
       (pack "haskell-lsp" "0.22.0.0" "1q3w46qcvzraxgmw75s7bl0qvb2fvff242r5vfx95sqska566b4m")
       (pack "haskell-lsp-types" "0.22.0.0" "1apjclphi2v6ggrdnbc0azxbb1gkfj3x1vkwpc8qd6lsrbyaf0n8")
-      (pack "hie-bios" "0.6.3" "188lc2pyn0ihhkz92d0fv32dvzm7jp2ravax6kxc3ycv26dqvipn")
+      (pack "hie-bios" "0.7.1" "137f1dy0fmlrzngwcmgnxghcih7f2rfq5bdnizbwy9534dn4dr42")
     ];
   in builtins.listToAttrs versions // {
     regex-posix = curated "regex-posix" "0.96.0.0";
