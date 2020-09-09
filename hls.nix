@@ -20,9 +20,6 @@ let
       (pack "haskell-lsp-types" "0.22.0.0" "1apjclphi2v6ggrdnbc0azxbb1gkfj3x1vkwpc8qd6lsrbyaf0n8")
       (pack "hie-bios" "0.7.1" "137f1dy0fmlrzngwcmgnxghcih7f2rfq5bdnizbwy9534dn4dr42")
       (pack "aeson" "1.5.2.0" "0rz7j7bcj5li2c5dmiv3pnmbs581vzkl9rbx9wq2v06f4knaklkf")
-      # (pack "data-fix" "0.3.0" "1w3z4fa28zxqwgsynlz025rkmrdcv7bj66031l502nc3x3yfljn6")
-      # (pack "strict" "0.4" "0sl9mfpnyras2jlpjfnji4406fzp0yg2kxfcr22s3zwpir622a97")
-      # (jpack "stylish-haskell" "0.11.0.3" "0rnvcil7i9z7ra2b4znsychlxdj6zm4capdzih1n1v0jp9xi31ac")
     ];
   in builtins.listToAttrs versions // {
     regex-posix = curated "regex-posix" "0.96.0.0";
