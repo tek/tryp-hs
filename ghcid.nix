@@ -84,7 +84,8 @@ let
 
   globalPackages = packages;
 in shells // {
-  inherit commands shellFor shellWith ghcidCmdFile ghcide;
+  inherit commands shellFor shellWith ghcidCmdFile ghcide haskell-language-server;
+  hls = haskell-language-server;
 
   cmd = ghcidCmd;
   cmdFile = ghcidCmdFile ghciShellFor;
