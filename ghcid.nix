@@ -6,6 +6,7 @@
   ghci,
   ghc,
   ghcide ? import ./ghcide.nix { inherit base pkgs ghc niv; },
+  haskell-language-server ? import ./hls.nix { inherit base pkgs ghc niv; },
   commands ? {},
   extraShellInputs ? [],
 }:
@@ -49,7 +50,7 @@ let
     hsPkgs = g: builtins.filter isNotTarget (concatMap inputs (map (p: g.${p}) packages));
     args = {
       name = "ghci-shell";
-      buildInputs = [ghc.ghcid ghcide ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
+      buildInputs = [ghc.ghcid ghcide haskell-language-server ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
       shellHook = hook;
     };
   in

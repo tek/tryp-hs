@@ -1,14 +1,50 @@
 {
+    "brittany": {
+        "branch": "master",
+        "description": "haskell source code formatter",
+        "homepage": "",
+        "owner": "bubba",
+        "repo": "brittany",
+        "rev": "7d68b1cc3809e2921756c3a1bf67a83e82c21b0a",
+        "sha256": "13b6gd0k4lgnkdlrhmw87aq1v57plvr3s2yqf15yqrpl4fh7gsv7",
+        "type": "tarball",
+        "url": "https://github.com/bubba/brittany/archive/7d68b1cc3809e2921756c3a1bf67a83e82c21b0a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "ghcide": {
         "branch": "master",
         "description": "A library for building Haskell IDE tooling",
         "homepage": "",
         "owner": "haskell",
         "repo": "ghcide",
-        "rev": "684be6885da25baeb74ab1954a0794ac77adf2db",
-        "sha256": "0qbpk3nk0bw86k4r8n16pd7g71xpw320x4nnzhp27pywgs4i89kb",
+        "rev": "9ae5134d79972405415ce5062dbae67aeb938f21",
+        "sha256": "0y5acfdn1wqz6bk7vh5b0h1ancq4c5v0irjv7h7dbbgzqawcshmz",
         "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/684be6885da25baeb74ab1954a0794ac77adf2db.tar.gz",
+        "url": "https://github.com/haskell/ghcide/archive/9ae5134d79972405415ce5062dbae67aeb938f21.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "ghcide-hls": {
+        "branch": "master",
+        "description": "A library for building Haskell IDE tooling",
+        "homepage": "",
+        "owner": "haskell",
+        "repo": "ghcide",
+        "rev": "96cf8c53d0bdc16d3d2cd0559b74962593ce6dc5",
+        "sha256": "15v3g3i5v0xbq50lfvl4bv3rx01nixiqx02sddqi5lj2idgmg24g",
+        "type": "tarball",
+        "url": "https://github.com/haskell/ghcide/archive/96cf8c53d0bdc16d3d2cd0559b74962593ce6dc5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "haskell-language-server": {
+        "branch": "master",
+        "description": "Integration point for ghcide and haskell-ide-engine. One IDE to rule them all.",
+        "homepage": null,
+        "owner": "haskell",
+        "repo": "haskell-language-server",
+        "rev": "ec827708f00e7e054525952f7de5c6ded046623d",
+        "sha256": "048c6b1s1p0kyfi92hgv37783x46drwdnfv9gniw8lszglsdjkd7",
+        "type": "tarball",
+        "url": "https://github.com/haskell/haskell-language-server/archive/ec827708f00e7e054525952f7de5c6ded046623d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -17,10 +53,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "fad2a6cbfb2e7cdebb7cb0ad2f5cc91e2c9bc06b",
-        "sha256": "0mghc1j0rd15spdjx81bayjqr0khc062cs25y5dcfzlxk4ynyc6m",
+        "rev": "dd13098d01eaa6be68237e7e38f96782b0480755",
+        "sha256": "1cfjdbsn0219fjzam1k7nqzkz8fb1ypab50rhyj026qbklqq2kvq",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/fad2a6cbfb2e7cdebb7cb0ad2f5cc91e2c9bc06b.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/dd13098d01eaa6be68237e7e38f96782b0480755.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
