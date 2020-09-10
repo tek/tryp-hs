@@ -32,11 +32,11 @@ let
 
   commands = {
     exe = {
-    script = ''
-      :load Main
-      :import Main
-    '';
-    test = "main";
+      script = ''
+        :load Main
+        :import Main
+      '';
+      test = "main";
       extraSearch = ["packages/backend/app"];
     };
   };
@@ -45,8 +45,10 @@ in
     inherit packages base overrides commands;
     compiler = "ghc8101";
     cabal2nixOptions = "--no-hpack";
-    ghciArgs = ["-hide-package" "base" "-Wall" "-Werror"];
-    options_ghc = "-fplugin=Polysemy.Plugin";
+    ghci = {
+      basicArgs = ["-hide-package" "base" "-Wall" "-Werror"];
+      options_ghc = "-fplugin=Polysemy.Plugin";
+    };
     packageDir = "packages";
   }
 ```
@@ -54,8 +56,8 @@ in
 ## ghcid
 
 Now you can run a `ghcid` session that runs the executable in
-`packages/backend/app`, has all dependencies and searches for modules in the
-directories specified in `packages`:
+`packages/backend/app` based on the config in the `commands` argument that has all
+dependencies and searches for modules in the directories specified in `packages`:
 
 `
 $ nix-shell --pure -A ghcid.exe --run exit`

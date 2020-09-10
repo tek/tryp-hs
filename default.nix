@@ -32,29 +32,30 @@ let
     ghc = pkgs.haskell.packages.${compiler};
   };
 
-  dev = basic: {
-    ghciArgs ? [],
-    ghciCommandArgs ? [],
-    commands ? {},
-    options_ghc ? null,
+  dev = basic: args@{
+    ghci ? {},
+    ghcid ? {},
     packageDir ? null,
-    extraShellInputs ? [],
     ...
-  }: basic // rec {
-    ghci = util.ghci {
-      basicArgs = ghciArgs;
-      commandArgs = ghciCommandArgs;
-      inherit options_ghc base;
+  }:
+  let
+    ghciDefaults = {
+      inherit base;
       inherit (basic) pkgs;
     };
-    ghcid = util.ghcid {
-      inherit ghci base commands niv extraShellInputs;
+    ghci = util.ghci (ghciDefaults // args.ghci);
+    ghcidDefaults = {
+      inherit ghci base niv;
       inherit (basic) pkgs ghc;
       packages = basic.sets.all;
     };
-    tags = util.tags { packages = basic.sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
-    cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
-  };
+  in
+    basic // {
+      inherit ghci;
+      ghcid = util.ghcid (ghcidDefaults // args.ghcid);
+      tags = util.tags { packages = basic.sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
+      cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
+    };
 
   projectWithSets = args: dev (basic args) args;
 in {

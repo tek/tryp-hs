@@ -5,8 +5,8 @@
   packages,
   ghci,
   ghc,
+  hls ? true,
   ghcide ? import ./ghcide.nix { inherit base pkgs ghc niv; },
-  haskell-language-server ? import ./hls.nix { inherit base pkgs ghc niv; },
   commands ? {},
   extraShellInputs ? [],
 }:
@@ -14,6 +14,7 @@ let
   lib = pkgs.lib;
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
+  haskell-language-server = if hls then import ./hls.nix { inherit base pkgs ghc niv; } else null;
 
   restart =
     f: "--restart='${f}'";
