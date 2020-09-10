@@ -33,8 +33,6 @@ let
   };
 
   dev = basic: args@{
-    ghci ? {},
-    ghcid ? {},
     packageDir ? null,
     ...
   }:
@@ -43,16 +41,16 @@ let
       inherit base;
       inherit (basic) pkgs;
     };
-    ghci = util.ghci (ghciDefaults // args.ghci);
+    ghci = util.ghci (ghciDefaults // args.ghci or {});
     ghcidDefaults = {
       inherit ghci base niv;
       inherit (basic) pkgs ghc;
       packages = basic.sets.all;
     };
+    ghcid = util.ghcid (ghcidDefaults // args.ghcid or {});
   in
     basic // {
-      inherit ghci;
-      ghcid = util.ghcid (ghcidDefaults // args.ghcid);
+      inherit ghci ghcid;
       tags = util.tags { packages = basic.sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
       cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
     };
