@@ -54,7 +54,7 @@ let
       shellHook = hook;
     };
   in
-    pkgs.stdenv.mkDerivation args // env;
+    pkgs.stdenv.mkDerivation (args // env);
 
   ghciShellFor = name: {
     packages,
