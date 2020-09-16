@@ -19,6 +19,7 @@ let
       (pack "haskell-lsp" "0.22.0.0" "1q3w46qcvzraxgmw75s7bl0qvb2fvff242r5vfx95sqska566b4m")
       (pack "haskell-lsp-types" "0.22.0.0" "1apjclphi2v6ggrdnbc0azxbb1gkfj3x1vkwpc8qd6lsrbyaf0n8")
       (pack "hie-bios" "0.7.1" "137f1dy0fmlrzngwcmgnxghcih7f2rfq5bdnizbwy9534dn4dr42")
+      (pack "implicit-hie-cradle" "0.2.0.0" "1x553pp3lx1k4m28qrdl8ihj2gkiraaqw32y1zf7x2vm5mksh3bs")
     ];
   in builtins.listToAttrs versions // {
     regex-posix = curated "regex-posix" "0.96.0.0";
