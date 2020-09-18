@@ -97,8 +97,4 @@ in rec {
       scriptFile = pkgs.writeText "ghci-script" fullScript;
     in
     "ghci ${basic} ${command} ${preproc} ${search} -ghci-script ${scriptFile}";
-
-  ghcide-conf =
-    packages:
-    args.basic ++ args.preprocessor ++ [(searchPaths (map libDir packages.dirs))];
 }

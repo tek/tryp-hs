@@ -120,7 +120,4 @@ in shells // {
     };
 
   shell = shellWith { ide = true; };
-
-  ghcide-conf =
-    builtins.concatStringsSep "\n" (ghci.ghcide-conf packages);
 }
