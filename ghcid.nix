@@ -49,14 +49,16 @@ let
     hook ? "",
     env ? {},
     flags ? [],
+    ide ? false,
   }:
   let
     isNotTarget = p: !(p ? pname && any (n: p.pname == n) packages);
     inputs = p: p.buildInputs ++ p.propagatedBuildInputs;
     hsPkgs = g: builtins.filter isNotTarget (concatMap inputs (map (p: g.${p}) packages)) ++ extraShellPackages g;
+    ideInputs = if ide then [ghcide haskell-language-server] else [];
     args = {
       name = "ghci-shell";
-      buildInputs = [ghc.ghcid ghcide haskell-language-server ghc.cabal-install] ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
+      buildInputs = [ghc.ghcid ghc.cabal-install] ++ ideInputs ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
       shellHook = hook;
     };
   in
@@ -117,7 +119,7 @@ in shells // {
       extraSearch = [(testMod pkg type)];
     };
 
-  shell = shellWith {};
+  shell = shellWith { ide = true; };
 
   ghcide-conf =
     builtins.concatStringsSep "\n" (ghci.ghcide-conf packages);
