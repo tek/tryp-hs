@@ -6,6 +6,7 @@ let
   shell = cmd:
   ghcid.shellWith {
     hook = ''
+      export NIX_ENFORCE_PURITY=0
       ${cmd}
       exit
     '';
