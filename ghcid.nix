@@ -10,12 +10,16 @@
   commands ? {},
   extraShellInputs ? [],
   extraShellPackages ? (_: []),
+  prelude ? null,
 }:
 let
   lib = pkgs.lib;
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
   haskell-language-server = if hls then import ./hls.nix { inherit base pkgs ghc niv; } else null;
+
+  globalPackages = packages;
+  globalPrelude = prelude;
 
   restart =
     f: "--restart='${f}'";
@@ -67,9 +71,13 @@ let
     extraRestarts ? [],
     preCommand ? "",
     flags ? [],
+    prelude ? null,
   }:
   let
-    mainCommand = ghci.command packages script extraSearch;
+    mainCommand = ghci.command {
+      inherit packages script extraSearch;
+      prelude = if isNull prelude then globalPrelude else prelude;
+    };
     command = ''
       ${preCommand}
       ${mainCommand}
@@ -83,14 +91,11 @@ let
   shells = builtins.mapAttrs ghciShellFor commands;
 
   shellWith = args: shellFor ({ packages = packages.names; } // args);
-
-  globalPackages = packages;
 in shells // {
-  inherit commands shellFor shellWith ghcidCmdFile ghcide haskell-language-server;
+  inherit commands shellFor shellWith ghcidCmdFile ghciShellFor ghcide haskell-language-server;
   hls = haskell-language-server;
 
   cmd = ghcidCmd;
-  cmdFile = ghcidCmdFile ghciShellFor;
 
   run =
     { pkg,
@@ -99,13 +104,14 @@ in shells // {
       type,
       runner,
       packages ? globalPackages,
+      prelude ? null,
       env ? {},
       extraRestarts ? [],
       preCommand ? "",
       flags ? [],
     }:
     ghciShellFor "run" {
-      inherit packages env extraRestarts preCommand flags;
+      inherit packages env extraRestarts preCommand flags prelude;
       script = ghci.scripts.run pkg module runner;
       test = ghci.tests.test name runner;
       extraSearch = [(testMod pkg type)];

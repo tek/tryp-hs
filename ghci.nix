@@ -4,9 +4,11 @@
   basicArgs ? [],
   commandArgs ? [],
   options_ghc ? null,
-
 }:
 let
+  inherit (pkgs.lib.lists) optional;
+  inherit (pkgs.lib.strings) optionalString;
+
   testCwd =
     pkg: "${toString base}/packages/${pkg}";
 
@@ -22,10 +24,17 @@ let
   preproc_options_ghc =
     if (builtins.isNull options_ghc || options_ghc == "") then [] else ["-optF" options_ghc];
 
+  preludeScript = prelude:
+    ''
+      :load ${toString prelude}
+      import Prelude
+      :set -XImplicitPrelude
+    '';
+
 in rec {
   args = {
-    basic =
-      ["-no-user-package-db" "-package-env" "-"] ++ basicArgs;
+    basic = prelude:
+    ["-no-user-package-db" "-package-env" "-"] ++ basicArgs ++ optional (prelude != null) "-XNoImplicitPrelude";
 
     command =
       commandArgs;
@@ -73,14 +82,19 @@ in rec {
       else name;
   };
 
-  command =
-    packages: script: extraSearch:
+  command = {
+    packages,
+    script,
+    extraSearch,
+    prelude ? null,
+  }:
     let
-      basic = toString args.basic;
+      basic = toString (args.basic prelude);
       command = toString args.command;
       preproc = toString args.preprocessor;
       search = searchPaths ((map libDir packages.dirs) ++ extraSearch);
-      scriptFile = pkgs.writeText "ghci-script" script;
+      fullScript = optionalString (prelude != null) (preludeScript prelude) + script;
+      scriptFile = pkgs.writeText "ghci-script" fullScript;
     in
     "ghci ${basic} ${command} ${preproc} ${search} -ghci-script ${scriptFile}";
 
