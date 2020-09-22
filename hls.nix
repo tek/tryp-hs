@@ -32,6 +32,7 @@ let
       (pack "lsp-test" "0.11.0.6" "19mbbkjpgpmkna26i4y1jvp305srv3kwa5b62x30rlb3rqf2vy5v")
       (pack "monad-dijkstra" "0.1.1.3" "0b8yj2p6f0h210hmp9pnk42jzrrhc4apa0d5a6hpa31g66jxigy8")
       (pack "network" "2.8.0.1" "0nrgwcklb7a32wxmvbgxmm4zsbk3gpc6f2d8jpyb0b1hwy0ji4mv")
+      (pack "network-bsd" "2.8.0.0" "1qcqz09z8155mbdmfc7hwqc8fph411czm4mlih8i608rhnlplkvb")
       (pack "ormolu" "0.1.3.0" "0wmkqyavmhpxmrc794jda9x0gy6kmzlmv5waq1031xfgqxmki72y")
       (pack "parser-combinators" "1.2.1" "1990d6c1zm2wq4w9521bx7l3arg4ly02hq1ass9n19gs273bxx5h")
       (pack "primitive" "0.7.1.0" "1mmhfp95wqg6i5gzap4b4g87zgbj46nnpir56hqah97igsbvis7j")
