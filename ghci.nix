@@ -31,6 +31,11 @@ let
       :set -XImplicitPrelude
     '';
 
+  cwdScript = cwd:
+  optionalString (cwd != null) ''
+    :cd ${cwd}
+  '';
+
 in rec {
   args = {
     basic = prelude:
@@ -51,12 +56,14 @@ in rec {
       import Hedgehog (check)
     '';
 
-    unit = pkg: module: ''
-      :cd ${testCwd pkg}
-      :load ${module}
-      import ${module}
-      import Hedgehog (check, property, test, withTests)
-    '';
+    unit = pkg: module: {
+      cwd = testCwd pkg;
+      script = ''
+        :load ${module}
+        import ${module}
+        import Hedgehog (check, property, test, withTests)
+      '';
+    };
 
     generic = module: ''
       :load ${module}
@@ -89,11 +96,13 @@ in rec {
     prelude ? null,
   }:
     let
+      cwd = if builtins.isAttrs script && script ? cwd then script.cwd else null;
+      scriptText = if builtins.isAttrs script then script.script else script;
       basic = toString (args.basic prelude);
       command = toString args.command;
       preproc = toString args.preprocessor;
       search = searchPaths ((map libDir packages.dirs) ++ extraSearch);
-      fullScript = optionalString (prelude != null) (preludeScript prelude) + script;
+      fullScript = cwdScript cwd + optionalString (prelude != null) (preludeScript prelude) + scriptText;
       scriptFile = pkgs.writeText "ghci-script" fullScript;
     in
     "ghci ${basic} ${command} ${preproc} ${search} -ghci-script ${scriptFile}";
