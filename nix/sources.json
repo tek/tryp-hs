@@ -17,22 +17,22 @@
         "homepage": "",
         "owner": "haskell",
         "repo": "ghcide",
-        "rev": "153536bda11fbf1ebee8434aa981911db73d09b8",
-        "sha256": "0cfa4m23w761cmj0ibahlxcr72an2s3vixzhff4hds5baacn5lqf",
+        "rev": "4937586a2d356156a37f8611b5fa3ff8ece56093",
+        "sha256": "1hd4clv50lmz085grx720dcw00rvmb5s2fs2az6hlvq3b35l34rf",
         "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/153536bda11fbf1ebee8434aa981911db73d09b8.tar.gz",
+        "url": "https://github.com/haskell/ghcide/archive/4937586a2d356156a37f8611b5fa3ff8ece56093.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ghcide-hls": {
-        "branch": "master",
+        "branch": "hls-3.3",
         "description": "A library for building Haskell IDE tooling",
         "homepage": "",
         "owner": "haskell",
         "repo": "ghcide",
-        "rev": "153536bda11fbf1ebee8434aa981911db73d09b8",
-        "sha256": "0cfa4m23w761cmj0ibahlxcr72an2s3vixzhff4hds5baacn5lqf",
+        "rev": "bfe35e60cc5c5cf2a2bb73ca80d6b089c3ae5731",
+        "sha256": "0722pglbfwxq5vl7a616cy3c71hmfr4avmclkg3msn0srjb69c5q",
         "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/153536bda11fbf1ebee8434aa981911db73d09b8.tar.gz",
+        "url": "https://github.com/haskell/ghcide/archive/bfe35e60cc5c5cf2a2bb73ca80d6b089c3ae5731.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell-language-server": {
@@ -41,10 +41,10 @@
         "homepage": null,
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "34eff9652da4f9bc7ec1a1d0a41d90e29202ed23",
-        "sha256": "1jn6ninc0bl2d22a8pl2r32h2h03lhlidqrd2xjsnshsxgdqa4r1",
+        "rev": "e8c02fe4197839da9cb86197e6433ecbd598da07",
+        "sha256": "1ylkibiix4xn796rr0lwf81m9wa40wj2j9p8c8xry24bblxcspfv",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/34eff9652da4f9bc7ec1a1d0a41d90e29202ed23.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/e8c02fe4197839da9cb86197e6433ecbd598da07.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {

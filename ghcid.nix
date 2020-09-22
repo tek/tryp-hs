@@ -6,7 +6,6 @@
   ghci,
   ghc,
   hls ? true,
-  ghcide ? import ./ghcide.nix { inherit base pkgs ghc niv; },
   commands ? {},
   extraShellInputs ? [],
   extraShellPackages ? (_: []),
@@ -17,6 +16,7 @@ let
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
   haskell-language-server = if hls then import ./hls.nix { inherit base pkgs ghc niv; } else null;
+  ghcide = if hls then null else import ./ghcide.nix { inherit base pkgs ghc niv; };
 
   globalPackages = packages;
   globalPrelude = prelude;
