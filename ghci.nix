@@ -21,6 +21,9 @@ let
     paths:
     "-i${colonSeparated paths}";
 
+  preproc_options_ghc =
+    if (builtins.isNull options_ghc || options_ghc == "") then [] else ["-optF" options_ghc];
+
   preludeScript = prelude:
     ''
       :load ${toString prelude}
@@ -36,6 +39,8 @@ in rec {
     command =
       commandArgs;
 
+    preprocessor =
+      ["-F" "-pgmF" ./preprocessor.bash] ++ preproc_options_ghc;
   };
 
   scripts = rec {
@@ -86,9 +91,10 @@ in rec {
     let
       basic = toString (args.basic prelude);
       command = toString args.command;
+      preproc = toString args.preprocessor;
       search = searchPaths ((map libDir packages.dirs) ++ extraSearch);
       fullScript = optionalString (prelude != null) (preludeScript prelude) + script;
       scriptFile = pkgs.writeText "ghci-script" fullScript;
     in
-    "ghci ${basic} ${command} ${search} -ghci-script ${scriptFile}";
+    "ghci ${basic} ${command} ${preproc} ${search} -ghci-script ${scriptFile}";
 }
