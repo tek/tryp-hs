@@ -15,7 +15,8 @@ let
   lib = pkgs.lib;
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
-  haskell-language-server = if hls then import ./hls.nix { inherit base pkgs ghc niv; } else null;
+  hlsData = if hls then import ./hls.nix { inherit base pkgs ghc niv; } else null;
+  haskell-language-server = hlsData.hls;
   ghcide = if hls then null else import ./ghcide.nix { inherit base pkgs ghc niv; };
 
   globalPackages = packages;
@@ -95,6 +96,7 @@ let
   shellWith = args: shellFor ({ packages = packages.names; } // args);
 in shells // {
   inherit commands shellFor shellWith ghcidCmdFile ghciShellFor ghcide haskell-language-server;
+  hlsGhc = hlsData.ghc;
   hls = haskell-language-server;
 
   cmd = ghcidCmd;

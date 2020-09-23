@@ -48,5 +48,7 @@ let
     haskell-language-server = notest (cabal2nix "haskell-language-server" niv.haskell-language-server);
   };
   finalGhc = ghc.override { overrides = pkgs.lib.composeExtensions (tools.derivationOverride false) deps; };
-in
-  pkgs.haskell.lib.justStaticExecutables finalGhc.haskell-language-server
+in {
+  ghc = finalGhc;
+  hls = pkgs.haskell.lib.justStaticExecutables finalGhc.haskell-language-server;
+}
