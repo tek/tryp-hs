@@ -41,9 +41,19 @@ let
     in
       "ghcid -W ${toString restarts} --command='${command}' --test='${test}'";
 
-  ghcidCmdFile =
-    packages: command: test: extraRestarts:
-    pkgs.writeScript "ghcid-cmd" (ghcidCmd packages command test extraRestarts);
+    ghcidCmdFile = {
+      packages,
+      command,
+      test,
+      extraRestarts,
+      preStartCommand,
+      exitCommand,
+    }:
+    pkgs.writeScript "ghcid-cmd" ''
+      ${preStartCommand}
+      ${ghcidCmd packages command test extraRestarts}
+      ${exitCommand}
+    '';
 
   shellFor = {
     packages,
@@ -73,6 +83,8 @@ let
     env ? {},
     extraRestarts ? [],
     preCommand ? "",
+    preStartCommand ? "",
+    exitCommand ? "",
     flags ? [],
     prelude ? null,
   }:
@@ -87,7 +99,10 @@ let
     '';
   in shellFor {
     packages = packages.names;
-    hook = ghcidCmdFile packages.byDir command test extraRestarts;
+    hook = ghcidCmdFile {
+      packages = packages.byDir;
+      inherit command test extraRestarts preStartCommand exitCommand;
+    };
     inherit env flags;
   };
 
@@ -112,10 +127,12 @@ in shells // {
       env ? {},
       extraRestarts ? [],
       preCommand ? "",
+      preStartCommand ? "",
+      exitCommand ? "",
       flags ? [],
     }:
     ghciShellFor "run" {
-      inherit packages env extraRestarts preCommand flags prelude;
+      inherit packages env extraRestarts preCommand preStartCommand exitCommand flags prelude;
       script = ghci.scripts.run pkg module runner;
       test = ghci.tests.test name runner;
       extraSearch = [(testMod pkg type)];
