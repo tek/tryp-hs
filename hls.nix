@@ -50,5 +50,5 @@ let
   finalGhc = ghc.override { overrides = pkgs.lib.composeExtensions (tools.derivationOverride false) deps; };
 in {
   ghc = finalGhc;
-  hls = pkgs.haskell.lib.justStaticExecutables finalGhc.haskell-language-server;
+  hls = finalGhc.haskell-language-server;
 }
