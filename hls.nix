@@ -28,7 +28,7 @@ let
       (pack "hie-bios" "0.7.1" "137f1dy0fmlrzngwcmgnxghcih7f2rfq5bdnizbwy9534dn4dr42")
       (pack "hslogger" "1.3.1.0" "05ca3n1xx3mjg7lfal6mrqx3qsh1a64h2wfwclxvilxjg9h7jbmc")
       (pack "implicit-hie" "0.1.1.0" "1pnsc76zyzjj3zxxgl3jv6j23jdn1p35a7sw5i2l9202jj0v90pv")
-      (pack "implicit-hie-cradle" "0.2.0.0" "1x553pp3lx1k4m28qrdl8ihj2gkiraaqw32y1zf7x2vm5mksh3bs")
+      (pack "implicit-hie-cradle" "0.2.0.1" "0wka62csnc4pqy0fj5b9h2vgzg24isfv8g6zaazrkyjql1gxmbay")
       (pack "lsp-test" "0.11.0.6" "19mbbkjpgpmkna26i4y1jvp305srv3kwa5b62x30rlb3rqf2vy5v")
       (pack "monad-dijkstra" "0.1.1.3" "0b8yj2p6f0h210hmp9pnk42jzrrhc4apa0d5a6hpa31g66jxigy8")
       (pack "network" "2.8.0.1" "0nrgwcklb7a32wxmvbgxmm4zsbk3gpc6f2d8jpyb0b1hwy0ji4mv")

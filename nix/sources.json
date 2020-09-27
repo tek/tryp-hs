@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "haskell",
         "repo": "ghcide",
-        "rev": "bfe35e60cc5c5cf2a2bb73ca80d6b089c3ae5731",
-        "sha256": "0722pglbfwxq5vl7a616cy3c71hmfr4avmclkg3msn0srjb69c5q",
+        "rev": "d5e3967de68b5951f8edfc1500a4bbfb6bcb768c",
+        "sha256": "1a8y0nlqpdvr18svfiv47l1dj8fm77s01xlpr6h62rsgclch7g9f",
         "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/bfe35e60cc5c5cf2a2bb73ca80d6b089c3ae5731.tar.gz",
+        "url": "https://github.com/haskell/ghcide/archive/d5e3967de68b5951f8edfc1500a4bbfb6bcb768c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell-language-server": {
@@ -41,10 +41,10 @@
         "homepage": null,
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "e8c02fe4197839da9cb86197e6433ecbd598da07",
-        "sha256": "1ylkibiix4xn796rr0lwf81m9wa40wj2j9p8c8xry24bblxcspfv",
+        "rev": "84a227489ef9d62bf32153d7b4877c7d6169cbad",
+        "sha256": "0ipca2rawkgrkwlh174n6mnzb7wxkamdpbyxdqlj0y5ba359ippa",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/e8c02fe4197839da9cb86197e6433ecbd598da07.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/84a227489ef9d62bf32153d7b4877c7d6169cbad.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
