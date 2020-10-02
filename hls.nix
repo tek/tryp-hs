@@ -42,10 +42,10 @@ let
       (pack "these" "1.1.1.1" "1i1nfh41vflvqxi8w8n2s35ymx2z9119dg5zmd2r23ya7vwvaka1")
     ];
   in builtins.listToAttrs versions // {
-    ghcide = cabal2nix "ghcide" niv.ghcide-hls;
+    ghcide = cabal2nix "ghcide" niv.ghcide;
     brittany = cabal2nix "brittany" niv.brittany;
-    hls-plugin-api = notest (subPkg "hls-plugin-api" "hls-plugin-api" niv.haskell-language-server);
-    haskell-language-server = notest (cabal2nix "haskell-language-server" niv.haskell-language-server);
+    hls-plugin-api = notest (subPkg "hls-plugin-api" "hls-plugin-api" niv.hls);
+    haskell-language-server = notest (cabal2nix "haskell-language-server" niv.hls);
   };
   finalGhc = ghc.override { overrides = pkgs.lib.composeExtensions (tools.derivationOverride false) deps; };
 in {

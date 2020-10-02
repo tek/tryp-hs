@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "haskell",
         "repo": "ghcide",
-        "rev": "4937586a2d356156a37f8611b5fa3ff8ece56093",
-        "sha256": "1hd4clv50lmz085grx720dcw00rvmb5s2fs2az6hlvq3b35l34rf",
+        "rev": "df13c5ad84f3252cb66b1e2b4e68d0b3d274364e",
+        "sha256": "0w329f5ls3h8sx2yvmq994rhsw1rk1rk1gmn244g5kd9v3f07y2z",
         "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/4937586a2d356156a37f8611b5fa3ff8ece56093.tar.gz",
+        "url": "https://github.com/haskell/ghcide/archive/df13c5ad84f3252cb66b1e2b4e68d0b3d274364e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ghcide-hls": {
@@ -35,16 +35,16 @@
         "url": "https://github.com/haskell/ghcide/archive/d5e3967de68b5951f8edfc1500a4bbfb6bcb768c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "haskell-language-server": {
+    "hls": {
         "branch": "master",
         "description": "Integration point for ghcide and haskell-ide-engine. One IDE to rule them all.",
         "homepage": null,
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "84a227489ef9d62bf32153d7b4877c7d6169cbad",
-        "sha256": "0ipca2rawkgrkwlh174n6mnzb7wxkamdpbyxdqlj0y5ba359ippa",
+        "rev": "623da0a0926d053dcdfe57f181de3ebf1e265343",
+        "sha256": "0fnsd4j98ks300d9v5ybxihlpawcmjlir8bpf1kxi5z988gmsv8w",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/84a227489ef9d62bf32153d7b4877c7d6169cbad.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/623da0a0926d053dcdfe57f181de3ebf1e265343.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
