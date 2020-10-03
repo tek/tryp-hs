@@ -23,18 +23,6 @@
         "url": "https://github.com/haskell/ghcide/archive/df13c5ad84f3252cb66b1e2b4e68d0b3d274364e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "ghcide-hls": {
-        "branch": "hls-3.3",
-        "description": "A library for building Haskell IDE tooling",
-        "homepage": "",
-        "owner": "haskell",
-        "repo": "ghcide",
-        "rev": "d5e3967de68b5951f8edfc1500a4bbfb6bcb768c",
-        "sha256": "1a8y0nlqpdvr18svfiv47l1dj8fm77s01xlpr6h62rsgclch7g9f",
-        "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/d5e3967de68b5951f8edfc1500a4bbfb6bcb768c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "hls": {
         "branch": "master",
         "description": "Integration point for ghcide and haskell-ide-engine. One IDE to rule them all.",
