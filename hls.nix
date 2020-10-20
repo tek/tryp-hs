@@ -36,17 +36,19 @@ let
       (pack "ormolu" "0.1.3.0" "0wmkqyavmhpxmrc794jda9x0gy6kmzlmv5waq1031xfgqxmki72y")
       (pack "parser-combinators" "1.2.1" "1990d6c1zm2wq4w9521bx7l3arg4ly02hq1ass9n19gs273bxx5h")
       (pack "primitive" "0.7.1.0" "1mmhfp95wqg6i5gzap4b4g87zgbj46nnpir56hqah97igsbvis7j")
-      (pack "refinery" "0.2.0.0" "1hi9l6jzfcj1zji4ghr4pxvahb5dz2iznlw35yyw680sgn2vgyhx")
+      (pack "refinery" "0.3.0.0" "08s5pw6j3ncz96zfc2j0cna2zbf4vy7045d6jpzmq2sa161qnpgi")
       (pack "retrie" "0.1.1.1" "0gnp6j35jnk1gcglrymvvn13sawir0610vh0z8ya6599kyddmw7l")
       (pack "shake" "0.19.1" "14myzmdywbcwgx03f454ymf5zjirs7wj1bcnhhsf0w1ck122y8q3")
-      (pack "stylish-haskell" "0.11.0.3" "0rnvcil7i9z7ra2b4znsychlxdj6zm4capdzih1n1v0jp9xi31ac")
+      (pack "stylish-haskell" "0.12.2.0" "1ck8i550rvzbvzrm7dvgir73slai8zmvfppg3n5v4igi7y3jy0mr")
       (pack "these" "1.1.1.1" "1i1nfh41vflvqxi8w8n2s35ymx2z9119dg5zmd2r23ya7vwvaka1")
     ];
   in builtins.listToAttrs versions // {
-    ghcide = cabal2nix "ghcide" niv.ghcide;
     brittany = cabal2nix "brittany" niv.brittany;
-    hls-plugin-api = notest (subPkg "hls-plugin-api" "hls-plugin-api" niv.hls);
+    ghcide = cabal2nix "ghcide" niv.ghcide;
     haskell-language-server = notest (cabal2nix "haskell-language-server" niv.hls);
+    hie-compat = notest (subPkg "hie-compat" "hie-compat" niv.ghcide);
+    hls-plugin-api = notest (subPkg "hls-plugin-api" "hls-plugin-api" niv.hls);
+    hls-tactics-plugin = notest (subPkg "plugins/tactics" "hls-tactics-plugin" niv.hls);
   };
   finalGhc = ghc.override { overrides = pkgs.lib.composeExtensions (tools.derivationOverride false) deps; };
 in {
