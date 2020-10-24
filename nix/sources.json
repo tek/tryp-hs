@@ -11,6 +11,18 @@
         "url": "https://github.com/bubba/brittany/archive/7d68b1cc3809e2921756c3a1bf67a83e82c21b0a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "brittany-810": {
+        "branch": "ghc-8.10.1",
+        "description": "haskell source code formatter",
+        "homepage": "",
+        "owner": "bubba",
+        "repo": "brittany",
+        "rev": "c59655f10d5ad295c2481537fc8abf0a297d9d1c",
+        "sha256": "1rkk09f8750qykrmkqfqbh44dbx1p8aq1caznxxlw8zqfvx39cxl",
+        "type": "tarball",
+        "url": "https://github.com/bubba/brittany/archive/c59655f10d5ad295c2481537fc8abf0a297d9d1c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "ghcide": {
         "branch": "master",
         "description": "A library for building Haskell IDE tooling",
@@ -29,10 +41,10 @@
         "homepage": null,
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "de4e387436d2878cdf88cb349c02c7ecbef2cffa",
-        "sha256": "1kykvf921q9hz3d3hvsi2zas7xb19sbywvr498b1gbgmx0y6a98g",
+        "rev": "c499f6bcbc85d949ecee9130c9f4a028dc4ac9ac",
+        "sha256": "0m89ihpwl2jj5a13488az3nvhv18x08k3xvr5c269gjn551gdlyw",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/de4e387436d2878cdf88cb349c02c7ecbef2cffa.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/c499f6bcbc85d949ecee9130c9f4a028dc4ac9ac.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {

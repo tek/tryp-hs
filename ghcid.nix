@@ -17,10 +17,12 @@ let
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
   hlsData = if hls then
-  if compiler == "ghc865" then
-  import ./hls-ghc865.nix { inherit base pkgs ghc niv; }
+  if compiler == "ghc865"
+  then import ./hls-ghc865.nix { inherit base pkgs ghc niv; }
   else
-  import ./hls.nix { inherit base pkgs ghc niv; }
+  if compiler == "ghc8101" || compiler == "ghc8102"
+  then import ./hls-ghc810.nix { inherit base pkgs ghc niv; }
+  else import ./hls.nix { inherit base pkgs ghc niv; }
   else null;
   haskell-language-server = if hls then hlsData.hls else null;
   ghcide = if hls then null else import ./ghcide.nix { inherit base pkgs ghc niv; };
