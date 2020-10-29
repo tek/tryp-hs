@@ -45,7 +45,7 @@ let
     ghci = util.ghci (ghciDefaults // args.ghci or {});
     ghcidDefaults = {
       inherit ghci base niv;
-      inherit (basic) pkgs ghc compiler;
+      inherit (basic) pkgs ghc;
       packages = basic.sets.all;
     };
     ghcid = util.ghcid (ghcidDefaults // args.ghcid or {});

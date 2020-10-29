@@ -10,17 +10,17 @@
   extraShellInputs ? [],
   extraShellPackages ? (_: []),
   prelude ? null,
-  compiler ? "ghc844",
 }:
 let
+  version = ghc.ghc.version;
   lib = pkgs.lib;
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
   hlsData = if hls then
-  if compiler == "ghc865"
+  if version == "8.6.5"
   then import ./hls-ghc865.nix { inherit base pkgs ghc niv; }
   else
-  if compiler == "ghc8101" || compiler == "ghc8102"
+  if version == "8.10.1" || version == "8.10.2"
   then import ./hls-ghc810.nix { inherit base pkgs ghc niv; }
   else import ./hls.nix { inherit base pkgs ghc niv; }
   else null;
