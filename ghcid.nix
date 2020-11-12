@@ -6,6 +6,7 @@
   ghci,
   ghc,
   hls ? true,
+  system-hls ? false,
   commands ? {},
   extraShellInputs ? [],
   extraShellPackages ? (_: []),
@@ -17,9 +18,6 @@ let
   inherit (pkgs.haskell.lib) enableCabalFlag;
   inherit (lib.lists) any concatMap;
   hlsData = if hls then
-  if version == "8.6.5"
-  then import ./hls-ghc865.nix { inherit base pkgs ghc niv; }
-  else
   if version == "8.10.1" || version == "8.10.2"
   then import ./hls-ghc810.nix { inherit base pkgs ghc niv; }
   else import ./hls.nix { inherit base pkgs ghc niv; }
@@ -120,7 +118,7 @@ let
 in shells // {
   inherit commands shellFor shellWith ghcidCmdFile ghciShellFor ghcide haskell-language-server;
   hlsGhc = hlsData.ghc;
-  hls = haskell-language-server;
+  hls = if system-hls then ghc.haskell-language-server else haskell-language-server;
 
   cmd = ghcidCmd;
 
