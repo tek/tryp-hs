@@ -52,7 +52,7 @@ let
   in
     basic // {
       inherit ghci ghcid;
-      tags = util.tags { packages = basic.sets.all; inherit packageDir; inherit (basic) compiler pkgs ghc; };
+      tags = util.tags { packages = basic.sets.all; inherit packageDir niv; inherit (basic) compiler pkgs ghc; };
       cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
       hpack = util.hpack { inherit base; inherit (basic) pkgs; };
     };

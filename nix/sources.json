@@ -70,5 +70,17 @@
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/13a15f262a2b348d6aa976017f2cd88e3a18405d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "thax": {
+        "branch": "master",
+        "description": "ctags generation for haskell projects with nix dependency management",
+        "homepage": null,
+        "owner": "tek",
+        "repo": "thax",
+        "rev": "8f63f0578a97bae2584483f3d78750a97d6afb88",
+        "sha256": "0sxhsz4xjyrx1bi1crbi2liwn2chdc9sc7r07zk3d1mdmf2nbyhk",
+        "type": "tarball",
+        "url": "https://github.com/tek/thax/archive/8f63f0578a97bae2584483f3d78750a97d6afb88.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

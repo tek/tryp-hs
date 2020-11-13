@@ -4,9 +4,10 @@
   ghc,
   compiler,
   packageDir ? null,
+  niv,
 }:
 let
-  tagsSrc = fetchTarball "https://github.com/tek/thax/tarball/95e0c9693bca1ea4ff197950dd0df1d8536e68ab";
+  tagsSrc = niv.thax;
   # tagsSrc = ../thax;
   tags = import tagsSrc {
     inherit pkgs compiler;
