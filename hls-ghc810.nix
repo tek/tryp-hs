@@ -24,6 +24,7 @@ let
     ghcide = cabal2nix "ghcide" niv.ghcide;
     haskell-language-server = notest (cabal2nix "haskell-language-server" niv.hls);
     hie-compat = notest (subPkg "hie-compat" "hie-compat" niv.ghcide);
+    hls-hlint-plugin = notest (subPkg "plugins/hls-hlint-plugin" "hls-hlint-plugin" niv.hls);
     hls-plugin-api = notest (subPkg "hls-plugin-api" "hls-plugin-api" niv.hls);
     hls-tactics-plugin = notest (subPkg "plugins/tactics" "hls-tactics-plugin" niv.hls);
   };
