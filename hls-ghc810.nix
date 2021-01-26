@@ -51,7 +51,7 @@ let
     ghcide = notest (subPkg "ghcide" "ghcide" niv.hls);
     shake-bench = notest (subPkg "shake-bench" "shake-bench" niv.hls);
     haskell-language-server = notest (cabal2nix "haskell-language-server" niv.hls);
-    hie-compat = notest (subPkg "hie-compat" "hie-compat" niv.ghcide);
+    hie-compat = notest (subPkg "hie-compat" "hie-compat" niv.hls);
     hls-exactprint-utils = notest (subPkg "hls-exactprint-utils" "hls-exactprint-utils" niv.hls);
     hls-plugin-api = notest (subPkg "hls-plugin-api" "hls-plugin-api" niv.hls);
   } // plugins;
