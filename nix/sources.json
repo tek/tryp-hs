@@ -71,6 +71,42 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/13a15f262a2b348d6aa976017f2cd88e3a18405d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "obelisk": {
+        "branch": "master",
+        "description": "Functional reactive web and mobile applications, with batteries included.",
+        "homepage": "https://reflex-frp.org",
+        "owner": "obsidiansystems",
+        "repo": "obelisk",
+        "rev": "7ad33cbe3e84b209e83c505ce25486445bbd602e",
+        "sha256": "0dlk8y6rxc87crw7764zq2py7nqn38lw496ca1y893m9gdq8qdkz",
+        "type": "tarball",
+        "url": "https://github.com/obsidiansystems/obelisk/archive/7ad33cbe3e84b209e83c505ce25486445bbd602e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "reflex-platform": {
+        "branch": "develop",
+        "description": "A curated package set and set of tools that let you build Haskell packages so they can run on a variety of platforms. reflex-platform is built on top of the nix package manager.",
+        "homepage": "https://reflex-frp.org",
+        "owner": "reflex-frp",
+        "repo": "reflex-platform",
+        "rev": "f019863c21ee85498e6a6e0072e617b2462b70ed",
+        "sha256": "146xfjqdwd55s9jg1ggi6akcxxxd5c0pvc4bpjx3whwiikpcv8y4",
+        "type": "tarball",
+        "url": "https://github.com/reflex-frp/reflex-platform/archive/f019863c21ee85498e6a6e0072e617b2462b70ed.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "snap-core": {
+        "branch": "ts-expose-fileserve-internals",
+        "description": "Core type definitions (Snap monad, HTTP types, etc) and utilities for web handlers. ",
+        "homepage": "http://snapframework.com/",
+        "owner": "obsidiansystems",
+        "repo": "snap-core",
+        "rev": "e015fc484e38dd9389c58b277b1884395e553bdf",
+        "sha256": "1793x1h4lw9vnrii5akhfxx1x9yrgxf3052jf6bs8f1mhaic6mxx",
+        "type": "tarball",
+        "url": "https://github.com/obsidiansystems/snap-core/archive/e015fc484e38dd9389c58b277b1884395e553bdf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "thax": {
         "branch": "master",
         "description": "ctags generation for haskell projects with nix dependency management",

@@ -13,6 +13,7 @@ let
     tags = import ./tags.nix;
     cabal = import ./cabal.nix;
     hpack = import ./hpack.nix;
+    obelisk = import ./obelisk niv;
   };
 
   basic = {
@@ -58,12 +59,11 @@ let
     };
 
   projectWithSets = args: dev (basic args) args;
-in {
-  inherit util basic dev projectWithSets;
 
   project = args@{ packages, ... }:
-  let
-    sets = util.packageSets { maps = { all = packages; }; };
-  in
-    projectWithSets (args // { inherit sets; });
+    projectWithSets (args // { sets = util.packageSets { maps = { all = packages; }; }; });
+
+  obelisk = util.obelisk;
+in {
+  inherit util basic dev projectWithSets project obelisk;
 }
