@@ -19,16 +19,27 @@ let
   };
   pkgs = reflex.nixpkgs;
 
-  reflexDummyArgs = {
+  emptyDir = pkgs.runCommand "empty-dir" {} ''
+    mkdir -p $out
+    touch $out/config.files
+  '';
+
+  reflexOptions = def: def // {
     packages = {};
     shells = {
       ghc = [];
       ghcjs = [];
       android = [];
     };
+    android = def.android // {
+      frontend = def.android.frontend // {
+        executableName = "frontend";
+        assets = emptyDir;
+      };
+    };
   };
 
-  project = reflex.project (args: projectDef args.pkgs // reflexDummyArgs);
+  project = reflex.project (args: reflexOptions (projectDef args.pkgs));
 in {
   inherit pkgs reflex project;
   profiled = import ./profiled.nix project.ghc;
