@@ -42,6 +42,7 @@ let
   project = reflex.project (args: reflexOptions (projectDef args.pkgs));
 in {
   inherit pkgs reflex project;
+  inherit (project) ghc ghcjs;
   profiled = import ./profiled.nix project.ghc;
   web = import ./web.nix {
     inherit pkgs niv reflex profiling optimizationLevel;
