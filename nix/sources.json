@@ -84,16 +84,10 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "reflex-platform": {
-        "branch": "develop",
-        "description": "A curated package set and set of tools that let you build Haskell packages so they can run on a variety of platforms. reflex-platform is built on top of the nix package manager.",
-        "homepage": "https://reflex-frp.org",
-        "owner": "reflex-frp",
-        "repo": "reflex-platform",
-        "rev": "f019863c21ee85498e6a6e0072e617b2462b70ed",
-        "sha256": "146xfjqdwd55s9jg1ggi6akcxxxd5c0pvc4bpjx3whwiikpcv8y4",
-        "type": "tarball",
-        "url": "https://github.com/reflex-frp/reflex-platform/archive/f019863c21ee85498e6a6e0072e617b2462b70ed.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+        "ref": "tryp",
+        "repo": "https://gitlab.tryp.io/nix/reflex-platform.git",
+        "rev": "17694b23d528b262efeaf0fbbc5b4fbe3deb4faf",
+        "type": "git"
     },
     "snap-core": {
         "branch": "ts-expose-fileserve-internals",
