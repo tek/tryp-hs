@@ -55,7 +55,7 @@ let
       inherit ghci ghcid;
       tags = util.tags { packages = basic.sets.all; inherit packageDir niv; inherit (basic) compiler pkgs ghc; };
       cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
-      hpack = util.hpack { inherit base; inherit (basic) pkgs; };
+      hpack = { verbose ? false }: util.hpack { inherit base verbose; inherit (basic) pkgs; };
     };
 
   projectWithSets = args: dev (basic args) args;

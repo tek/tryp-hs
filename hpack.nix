@@ -1,4 +1,4 @@
-{ base, pkgs }:
+{ base, pkgs, verbose }:
 let
   script = pkgs.writeScript "hpack.zsh" ''
     #!${pkgs.zsh}/bin/zsh
@@ -14,7 +14,7 @@ let
       cp $hpack/packages/''${dir:t}.yaml $dir/package.yaml
       ln -srf $hpack/shared $dir/shared
       trap "rm -f $dir/package.yaml $dir/shared" EXIT
-      hpack 1>/dev/null
+      hpack${if verbose then "" else " 1>/dev/null"}
       popd
     }
 
