@@ -11,30 +11,6 @@
         "url": "https://github.com/bubba/brittany/archive/7d68b1cc3809e2921756c3a1bf67a83e82c21b0a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "brittany-810": {
-        "branch": "ghc-8.10.1",
-        "description": "haskell source code formatter",
-        "homepage": "",
-        "owner": "bubba",
-        "repo": "brittany",
-        "rev": "c59655f10d5ad295c2481537fc8abf0a297d9d1c",
-        "sha256": "1rkk09f8750qykrmkqfqbh44dbx1p8aq1caznxxlw8zqfvx39cxl",
-        "type": "tarball",
-        "url": "https://github.com/bubba/brittany/archive/c59655f10d5ad295c2481537fc8abf0a297d9d1c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "ghcide": {
-        "branch": "master",
-        "description": "A library for building Haskell IDE tooling",
-        "homepage": "",
-        "owner": "haskell",
-        "repo": "ghcide",
-        "rev": "dcf680402722e7660377bf7da3fca27c2bde988f",
-        "sha256": "0830wb28aca55iax6933z6wg0sxdshwkqlzvnn7khrqrf98wqv5v",
-        "type": "tarball",
-        "url": "https://github.com/haskell/ghcide/archive/dcf680402722e7660377bf7da3fca27c2bde988f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "hls": {
         "branch": "master",
         "description": "Integration point for ghcide and haskell-ide-engine. One IDE to rule them all.",

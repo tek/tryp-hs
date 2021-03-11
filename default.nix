@@ -1,69 +1,7 @@
-{
-  base,
-}:
 let
-  niv = import ./nix/sources.nix;
-  util = rec {
-    hackage = import ./hackage.nix base;
-    ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
-    ghcOverrides = import ./ghc-overrides.nix hackage;
-    ghci = import ./ghci.nix;
-    ghcid = import ./ghcid.nix;
-    packageSets = import ./package-sets.nix;
-    tags = import ./tags.nix;
-    cabal = import ./cabal.nix;
-    hpack = import ./hpack.nix;
-    obelisk = import ./obelisk niv;
+  compat = fetchTarball {
+    url = "https://github.com/edolstra/flake-compat/archive/99f1c2157fba4bfe6211a321fd0ee43199025dbf.tar.gz";
+    sha256 = "0x2jn3vrawwv9xp15674wjz9pixwjyj3j771izayl962zziivbx2";
   };
-
-  basic = {
-    nixpkgs ? import <nixpkgs>,
-    compiler ? "ghc865",
-    overrides ? { ... }: _: _: {},
-    cabal2nixOptions ? "",
-    profiling ? false,
-    base,
-    sets,
-    ...
-  }: rec {
-    inherit compiler sets;
-    pkgs = util.ghcNixpkgs {
-      inherit nixpkgs compiler overrides cabal2nixOptions profiling;
-      packages = sets.all.byPath;
-    };
-    ghc = pkgs.haskell.packages.${compiler};
-  };
-
-  dev = basic: args@{
-    packageDir ? null,
-    ...
-  }:
-  let
-    ghciDefaults = {
-      inherit base;
-      inherit (basic) pkgs;
-    };
-    ghci = util.ghci (ghciDefaults // args.ghci or {});
-    ghcidDefaults = {
-      inherit ghci base niv;
-      inherit (basic) pkgs ghc;
-      packages = basic.sets.all;
-    };
-    ghcid = util.ghcid (ghcidDefaults // args.ghcid or {});
-  in
-    basic // {
-      inherit ghci ghcid;
-      tags = util.tags { packages = basic.sets.all; inherit packageDir niv; inherit (basic) compiler pkgs ghc; };
-      cabal = util.cabal { packages = basic.sets.all.byPath; inherit ghcid; };
-      hpack = { verbose ? false }: util.hpack { inherit base verbose; inherit (basic) pkgs; };
-    };
-
-  projectWithSets = args: dev (basic args) args;
-
-  project = args@{ packages, ... }:
-    projectWithSets (args // { sets = util.packageSets { maps = { all = packages; }; }; });
-
-  obelisk = util.obelisk;
-in {
-  inherit util basic dev projectWithSets project obelisk;
-}
+in
+  (import compat { src = ./.; }).defaultNix

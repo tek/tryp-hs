@@ -23,7 +23,6 @@ let
   else import ./hls.nix { inherit base pkgs ghc niv; }
   else null;
   haskell-language-server = if hls then hlsData.hls else null;
-  ghcide = if hls then null else import ./ghcide.nix { inherit base pkgs ghc niv; };
 
   globalPackages = packages;
   globalPrelude = prelude;
@@ -72,10 +71,10 @@ let
     isNotTarget = p: !(p ? pname && any (n: p.pname == n) packages);
     inputs = p: p.buildInputs ++ p.propagatedBuildInputs;
     hsPkgs = g: builtins.filter isNotTarget (concatMap inputs (map (p: g.${p}) packages)) ++ extraShellPackages g;
-    ideInputs = if ide then [ghcide haskell-language-server] else [];
+    ideInputs = if ide then [haskell-language-server] else [];
     args = {
       name = "ghci-shell";
-      buildInputs = [ghc.ghcid ghc.cabal-install] ++ ideInputs ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
+      buildInputs = [ghc.haskell-language-server ghc.cabal-install] ++ ideInputs ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
       shellHook = hook;
     };
   in
@@ -116,7 +115,7 @@ let
 
   shellWith = args: shellFor ({ packages = packages.names; } // args);
 in shells // {
-  inherit commands shellFor shellWith ghcidCmdFile ghciShellFor ghcide haskell-language-server;
+  inherit commands shellFor shellWith ghcidCmdFile ghciShellFor haskell-language-server;
   hlsGhc = hlsData.ghc;
   hls = if system-hls then ghc.haskell-language-server else haskell-language-server;
 

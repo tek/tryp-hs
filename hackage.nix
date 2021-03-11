@@ -1,4 +1,3 @@
-base:
 {
   pkgs,
   self,
@@ -18,11 +17,10 @@ let
     notest (self.callHackage pkg ver {});
   subPkg = dir: name: src:
     notest (self.callCabal2nixWithOptions name src "--subpath ${dir}" {});
-  thunk = name: import ("${toString base}/ops/dep/${toString name}/thunk.nix");
   github = args@{ repo, ... }:
     jailbreak (cabal2nix repo (pkgs.fetchFromGitHub args));
 in {
-  inherit unbreak notest jailbreak hackage cabal2nix curated subPkg thunk github;
+  inherit unbreak notest jailbreak hackage cabal2nix curated subPkg github;
   pack = pkg: ver: sha256:
     { name = pkg; value = hackage { inherit pkg ver sha256; }; };
   jpack = pkg: ver: sha256:
