@@ -1,6 +1,7 @@
 hackage:
 {
   nixpkgs,
+  system,
   compiler,
   overrides ? { ... }: _: _: {},
   packages ? {},
@@ -22,4 +23,7 @@ let
     };
   };
 in
-  nixpkgs { overlays = [overlay]; }
+  nixpkgs {
+    inherit system;
+    overlays = [overlay];
+  }

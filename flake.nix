@@ -1,10 +1,7 @@
 {
   description = "haskell development build tools";
   inputs = {
-    nixpkgs = {
-      url = github:NixOs/nixpkgs?rev=cfed29bfcb28259376713005d176a6f82951014a;
-      flake = false;
-    };
+    nixpkgs.url = github:NixOs/nixpkgs?rev=cfed29bfcb28259376713005d176a6f82951014a;
     brittany = {
       url = github:bubba/brittany;
       flake = false;
@@ -30,5 +27,5 @@
       flake = false;
     };
   };
-  outputs = { self, ... }@inputs: import ./main.nix inputs;
+  outputs = inputs: import ./main.nix inputs;
 }

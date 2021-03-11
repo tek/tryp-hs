@@ -14,7 +14,7 @@ let
   };
 
   basic = {
-    nixpkgs ? inputs.nixpkgs,
+    system ? "x86_64-linux",
     compiler ? "ghc865",
     overrides ? { ... }: _: _: {},
     cabal2nixOptions ? "",
@@ -25,7 +25,8 @@ let
   }: rec {
     inherit compiler sets;
     pkgs = util.ghcNixpkgs {
-      inherit nixpkgs compiler overrides cabal2nixOptions profiling;
+      nixpkgs = import inputs.nixpkgs;
+      inherit system compiler overrides cabal2nixOptions profiling;
       packages = sets.all.byPath;
     };
     ghc = pkgs.haskell.packages.${compiler};
@@ -63,7 +64,13 @@ let
   projectWithSets = args: dev (basic args) args;
 
   project = args@{ packages, ... }:
-    projectWithSets (args // { sets = util.packageSets { maps = { all = packages; }; }; });
+  let
+    sets = util.packageSets {
+      nixpkgs = import inputs.nixpkgs {};
+      maps = { all = packages; };
+    };
+  in
+    projectWithSets (args // { inherit sets; });
 
   obelisk = util.obelisk;
 in {

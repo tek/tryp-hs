@@ -1,9 +1,9 @@
 {
   maps,
+  nixpkgs,
 }:
 let
-  pkgs = import <nixpkgs> {};
-  inherit (pkgs.lib.attrsets) mapAttrs attrValues attrNames;
+  inherit (nixpkgs.lib.attrsets) mapAttrs attrValues attrNames;
   projects =
     _: byPath: rec {
       inherit byPath;
