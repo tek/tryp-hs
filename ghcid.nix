@@ -46,19 +46,19 @@ let
     in
       "ghcid -W ${toString restarts} --command='${command}' --test='${test}'";
 
-    ghcidCmdFile = {
-      packages,
-      command,
-      test,
-      extraRestarts,
-      preStartCommand,
-      exitCommand,
-    }:
-    pkgs.writeScript "ghcid-cmd" ''
-      ${preStartCommand}
-      ${ghcidCmd packages command test extraRestarts}
-      ${exitCommand}
-    '';
+  ghcidCmdFile = {
+    packages,
+    command,
+    test,
+    extraRestarts,
+    preStartCommand,
+    exitCommand,
+  }:
+  pkgs.writeScript "ghcid-cmd" ''
+    ${preStartCommand}
+    ${ghcidCmd packages command test extraRestarts}
+    ${exitCommand}
+  '';
 
   shellFor = {
     packages,
@@ -74,11 +74,36 @@ let
     ideInputs = if ide then [haskell-language-server] else [];
     args = {
       name = "ghci-shell";
-      buildInputs = [ghc.haskell-language-server ghc.cabal-install] ++ ideInputs ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
+      buildInputs = [ghc.ghcid ghc.cabal-install] ++ ideInputs ++ [(ghc.ghcWithPackages hsPkgs)] ++ extraShellInputs;
       shellHook = hook;
     };
   in
     pkgs.stdenv.mkDerivation (args // env);
+
+  ghcidShellCmd = {
+    packages,
+    script,
+    test,
+    extraSearch ? [],
+    extraRestarts ? [],
+    preCommand ? "",
+    preStartCommand ? "",
+    exitCommand ? "",
+    prelude ? null,
+  }:
+  let
+    mainCommand = ghci.command {
+      inherit packages script extraSearch;
+      prelude = if isNull prelude then globalPrelude else prelude;
+    };
+    command = ''
+      ${preCommand}
+      ${mainCommand}
+    '';
+  in ghcidCmdFile {
+    packages = packages.byDir;
+    inherit command test extraRestarts preStartCommand exitCommand;
+  };
 
   ghciShellFor = name: {
     packages,
@@ -93,20 +118,10 @@ let
     flags ? [],
     prelude ? null,
   }:
-  let
-    mainCommand = ghci.command {
-      inherit packages script extraSearch;
-      prelude = if isNull prelude then globalPrelude else prelude;
-    };
-    command = ''
-      ${preCommand}
-      ${mainCommand}
-    '';
-  in shellFor {
+  shellFor {
     packages = packages.names;
-    hook = ghcidCmdFile {
-      packages = packages.byDir;
-      inherit command test extraRestarts preStartCommand exitCommand;
+    hook = ghcidShellCmd {
+      inherit packages script test extraSearch extraRestarts preCommand preStartCommand exitCommand prelude;
     };
     inherit env flags;
   };
@@ -122,7 +137,8 @@ in shells // {
   cmd = ghcidCmd;
 
   run =
-    { pkg,
+    {
+      pkg,
       module,
       name,
       type,
