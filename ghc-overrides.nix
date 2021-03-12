@@ -1,4 +1,3 @@
-hackage:
 {
   pkgs,
   overrides ? { ... }: _: _: {},
@@ -7,6 +6,7 @@ hackage:
   profiling ? false,
 }:
 let
+  hackage = import ./hackage.nix;
   tools = import ./ghc-tools.nix { inherit packages; };
   inherit (pkgs.haskell.lib) dontCheck dontHaddock dontBenchmark;
   compose = pkgs.lib.composeExtensions;

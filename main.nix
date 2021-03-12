@@ -2,8 +2,9 @@ inputs:
 let
   util = rec {
     hackage = import ./hackage.nix;
-    ghcNixpkgs = import ./ghc-nixpkgs.nix hackage;
-    ghcOverrides = import ./ghc-overrides.nix hackage;
+    ghcOverlay = import ./ghc-overlay.nix;
+    ghcNixpkgs = import ./ghc-nixpkgs.nix;
+    ghcOverrides = import ./ghc-overrides.nix;
     ghci = import ./ghci.nix;
     ghcid = import ./ghcid.nix;
     packageSets = import ./package-sets.nix;
@@ -24,10 +25,13 @@ let
     ...
   }: rec {
     inherit compiler sets base;
-    pkgs = util.ghcNixpkgs {
-      nixpkgs = import inputs.nixpkgs;
-      inherit system compiler overrides cabal2nixOptions profiling;
+    overlay = util.ghcOverlay {
+      inherit compiler overrides cabal2nixOptions profiling;
       packages = sets.all.byPath;
+    };
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = [overlay];
     };
     ghc = pkgs.haskell.packages.${compiler};
   };

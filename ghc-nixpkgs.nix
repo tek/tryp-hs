@@ -1,4 +1,3 @@
-hackage:
 {
   nixpkgs,
   system,
@@ -8,22 +7,7 @@ hackage:
   cabal2nixOptions ? "",
   profiling ? false,
 }:
-let
-  overlay = self: super:
-  let
-    combined = import ./ghc-overrides.nix hackage {
-      inherit overrides packages cabal2nixOptions profiling;
-      pkgs = self;
-    };
-  in {
-    haskell = super.haskell // {
-      packages = super.haskell.packages // {
-        ${compiler} = super.haskell.packages.${compiler}.override { overrides = combined; };
-      };
-    };
-  };
-in
-  nixpkgs {
-    inherit system;
-    overlays = [overlay];
-  }
+nixpkgs {
+  inherit system;
+  overlays = [(import ./ghc-overlay.nix { inherit compiler overrides packages cabal2nixOptions profiling; })];
+}
