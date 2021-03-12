@@ -16,7 +16,7 @@ let
 
   basic = {
     system ? "x86_64-linux",
-    compiler ? "ghc865",
+    compiler ? "ghc8102",
     overrides ? { ... }: _: _: {},
     cabal2nixOptions ? "",
     profiling ? false,
@@ -67,10 +67,10 @@ let
 
   projectWithSets = args: dev (basic args) args;
 
-  project = args@{ packages, ... }:
+  project = args@{ packages, system, ... }:
   let
     sets = util.packageSets {
-      nixpkgs = import inputs.nixpkgs {};
+      nixpkgs = import inputs.nixpkgs { inherit system; };
       maps = { all = packages; };
     };
   in
