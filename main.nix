@@ -23,7 +23,7 @@ let
     sets,
     ...
   }: rec {
-    inherit compiler sets;
+    inherit compiler sets base;
     pkgs = util.ghcNixpkgs {
       nixpkgs = import inputs.nixpkgs;
       inherit system compiler overrides cabal2nixOptions profiling;

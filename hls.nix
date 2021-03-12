@@ -9,7 +9,7 @@ let
   tools = import ./ghc-tools.nix {};
   deps = self: super:
   let
-    hack = import ./hackage.nix base { inherit pkgs self super; };
+    hack = import ./hackage.nix { inherit pkgs self super; };
     inherit (hack) hackage pack jpack notest curated cabal2nix versionOverrides subPkg;
     versions = [
       (jpack "HsYAML" "0.2.1.0" "0r2034sw633npz7d2i4brljb5q1aham7kjz6r6vfxx8qqb23dwnc")
